@@ -1,0 +1,140 @@
+ĐỖ DUY CỐP => 56KMT: ĐỒ ÁN PHÂN TÍCH VÀ THIẾT KẾ HỆ THỐNG 
+//Làm 1 ăn 3 là có thật!
+//===========================================
+A. MÔN: PHÂN TÍCH VÀ THIẾT KẾ HỆ THỐNG
+(1) Khảo sát bài toán: 
+    - liệt kê các đặc trưng của bài toán, việc nào dùng cơm, việc nào có thể dùng phần mềm. 
+    - Cách xử lý số liệu của bài toán
+    - Các yêu cầu đầu ra, các báo cáo
+    - Chỉ ra các hạn chế của hệ thống cũ => Đưa ra ưu điểm của hệ thống mới (cải thiện đc gì)
+(2) Phân tích: từ các đặc trưng và các báo cáo => đưa ra các nhận xét, các lựa chọn.
+(3) Thiết kế DB: Thiết kế các bảng dữ liệu, mỗi bảng có các yêu cầu:
+  - Các trường và dữ liệu (type, size), có cần Unicode ko?
+  - NULL or NOT NULL? tại sao?
+  - Đâu là khóa chính PK, bộ khóa chính (PK gồm từ 2 trường trở lên)
+  - Đâu là khóa ngoại (FK): Relationships từ bảng @ sang bảng #
+  - Giá trị mặc định của trường (default value) => default value này giúp gì?
+  - Trường khóa có phải là tự động tăng (auto identity). khi nào cần auto identity?
+  - Các ràng buộc cứng trên 1 row phải thỏa (Check Contraints). khi nào cần Check Contraints?
+(4) Mô tả các chức năng + luồng dữ liệu
+  - Vẽ các biểu đồ luồng dữ liệu mức khung cảnh (là y/c bài toán)
+  - Vẽ sơ đồ Phân rã ra mức 1
+  - Vẽ sơ đồ Phân rã ra mức 2
+(5) Các chức năng ở mức 2: được hiện thực hóa bằng SQL
+  - Viết các Store Procedure với tên SP_XXX cho table XXX
+    trong SP_ này có @action để phân biệt các nhiệm vụ khác nhau
+    các nhiệm vụ thường là: select_all, select_one, insert_one, update_one, delete_one,...
+  - Trong trường hợp SQL khó có thể viết thêm các hàm (function scalar-valued) FN_ để hỗ trợ SP_
+//===========================================
+B. MÔN: CÔNG NGHỆ .NET (LẬP TRÌNH WEB)
+Thiết kế web với cơ chế One Page:
+ - Cơ sở dữ liệu : 
+   + Sử dụng SQL Server, cài sql server 2014, hoặc 2019 hoặc 2022
+   + cấu hình SQL Server cho phép truy cập từ máy tính khác (để có thể dùng ip+port với tài khoản sa+pw làm chuỗi kết nối)
+   + có cấu trúc dữ liệu phù hợp : đã làm ở môn A
+   + có các FN_ và các SP_ đáp ứng các yêu cầu của bài toán : đã làm ở môn A
+ - Back-end  (phía server): Dùng APS.NET (C#) để nhận yêu cầu từ ajax ($.get or $.post) gửi lên, xử lý, phản hồi lại json
+ - Pront-end (phía client): Chỉ code giao diện trong 1 file index.html, 1 file mystyle.css, 1 file mycode.js
+ - Back-end Sử dụng các thư viện:
+   + Newtonsoft.Json : để chuyển đổi quy lại giữa object và json
+   + System.Data.SqlClient : để tương tác với cơ sở dữ liệu SQL Server
+   + Tự viết thêm các DLL (library độc lập) để xử lý các yêu cầu chuyên biệt.
+ - Pront-end Sử dụng các thư viện:
+   + jquery : (js) để thao tác js nhanh với các phần tử html trên trang, và giúp đẩy dữ liệu tới API
+   + jquery-ui : (js) giúp kéo thả, và nhiều thứ khác (giúp tạo giao diện nhanh)
+   + jquery-confirm : (js) giúp tạo các hộp thoại (dialog), có các nút, bấm nút thì làm gì đó (tùy code).
+   + bootstrap5 : (css) giúp tạo giao diện nhanh, đẹp.
+   + fontawesome : (font) giúp tạo các icon nhanh đẹp.
+   + dataTable : (js) giúp phân trang, tìm kiếm, xuất excel dữ liệu đã đưa ra table html.
+   + toastr : (js) giúp hiển thị các thông báo nhanh, đẹp, đơn giản.
+   + Google chart : (js) giúp vẽ biểu đồ (nhưng phải online internet)
+   + Moment.js : (js) giúp xử lý thời gian hiệu quả, đơn giản.
+   + Select2.js : (js) giúp xử lý việc chọn 1, hoặc chọn nhiều (từ menu thả xuống, trong c# còn gọi là commboBox).
+   + underscorejs (js) cung cấp rất nhiều hàm js cần dùng.
+   + cookie.js : (thầy cốp tổng hợp trong github) giúp làm việc với cookie, thường dùng cho login.
+   + ...............
+//===========================================
+C. ĐỒ ÁN PT&TK HT:
+  + LÀ BẢN WORD=>PDF 2 BÀI A+B
+  + CÓ THÊM CÁC ẢNH CHỤP QUÁ TRÌNH LÀM BÀI A+B
+  + CODE: Nhớ full comment trong: mycode.js, mystyle.css, api.aspx.cs, và trong các FN_ và SP_, thậm chí có thể comment trong cả file index.html
+  + trình bày khoa học, không lỗi chính tả.
+  + bố cục:
+    + trang bìa: 1 trang, in giấy bài xanh+giấy bóng kính
+    + trang lot: 1 trang giấy trắng, in lại nội dung như cái bìa
+    + phiếu giao đề tài (thầy sẽ gửi mẫu)
+    Nội dung:
+    + Mục lục
+    + Danh mục hình ảnh
+    1. Khảo sát hiện trạng hệ thống: khoảng vài trang
+    2. Phân tích: vài trang
+    3. Thiết kế database: có hình ảnh chụp màn hình các bảng, và sơ đồ chân gà kết nối các bảng, (ko nêu quá trình cài sql)
+    4. Các chức năng của hệ thống: vẽ các sơ đồ chức năng + các luồng dữ liệu
+    5. Thiết kế web
+     + html: nêu cấu trúc trang html, sử dụng các thư viện gì
+     + css: các selector chính được sử dụng để làm gì
+     + js: tóm tắt đại ý. vẽ sơ đồ khối về việc sử dụng jquery làm chủ đạo, có gọi các thư viện hỗ trợ, tương tác với api, thu về json, xử lý json để cập nhật giao diện.
+     + api.aspx kill all, giữ lại dòng 1; api.aspx.cs : viết code để phục vụ ajax từ jquery phía client gọi. trả về json với cấu trúc phù hợp.
+    6. Cài đặt
+     + nêu nhanh các bước cài đặt IIS, SQL Server: khoảng 5 trang, có hình ảnh copy trên mạng
+     + cấu hình SQL Server cho phép truy cập từ máy tính khác (để có thể dùng ip+port với tài khoản sa+pw làm chuỗi kết nối)
+     + cấu hình add website trên IIS: chỉ cần upload những file nào từ project của VS2022 lên thư mục chỉ định website trên iis ?
+     + test với domain bất kỳ khi cấu hình file hosts
+     + cấu hình để cả thế giới truy cập được qua internet vào laptop của mình:
+       + đăng ký domain free từ noip.com hoặc duckdns.org
+       + cấu hình router (modem fiber) để mở port 80, 443 trỏ về ip lan của laptop
+       + cấu hình router tự động ánh xạ ip động của ISP cấp cho router vào domain free
+       + tạo chứng chỉ SSL trên laptop để website truy cập được từ https (keyword: win-acme)
+     + ảnh chụp kết quả web chạy test (nhiều hình + text mô tả hình này là gì)
+     + có thể chụp thêm ảnh màn hình điện thoại khi chạy web cũng show ok.
+    7.Kết luận:
+     + khẳng định lại: sau quá trình làm đồ án thì đồ án do em làm đã đặt được những gì (gạch đầu dòng liệt kê ra)
+     + những hạn chế: chỗ nào chưa hiểu rõ cũng liệt kê ra. việc liệt kê ra càng nhiều chứng tỏ những thứ đó ta đã mần tới nó, chỉ là mần chưa nẫu!
+     + hướng phát triển: em sẽ làm gì tiếp??
+//===========================================
+TÀI LIỆU THAM KHẢO:
+ + best self-study: https://www.w3schools.com/
+ + một vài thống kê: https://kinsta.com/blog/javascript-libraries/#data-handling
+ + mã hóa: https://github.com/brix/crypto-js
+ + tạo biểu tượng cho web: https://favicon.io/favicon-converter/
+ + gặp lỗi thì ưu tiên đọc từ nguồn: https://stackoverflow.com/
+ + other: Google
+//===========================================
+YÊU CẦU BẮT BUỘC:
+ + Tạo project trên vs2022
+ + File word báo cáo cũng lưu vào project này để git đẩy lên cloud
+ + Hàng ngày commit + push lên github
+
+//===========================================
+các đề tài mà thầy nghĩ ra:
+1. quản lý ký túc xá tnut (đã phân tích trên lớp)
+2. quản lý thư viện tnut (đã phân tích trên lớp)
+3. quản lý điểm rèn luyện sv tnut (đã phân tích trên lớp)
+4. quản lý bán thuốc (đã phân tích trên lớp)
+5. quản lý dãy nhà trọ (gần như ktx, nhưng sẽ có đặc trưng khác)
+6. quản lý nhà gửi xe tnut (tự khảo sát)
+7. quản lý quán karaoke (quán có n phòng, khách đến vào phòng i, phòng bày sẵn đồ, khách tự bóc ra, khách gọi thêm đồ ăn uống, hát, ra thanh toán)
+8. quản lý quán cafe (quán có n bàn, khách đến ngồi bàn i, nhân viên ra hỏi uống gì, vào pha chế rồi đem ra, chờ khách gọi tiếp, khách thanh toán)
+9. quản lý chi tiêu trong gia đình (tiền vào: từ nguồn nào, bao tiền, diễn giải số tiền này; tiền ra: tiêu bao nhiêu, thuộc nhóm chi tiêu nào, diễn giải)
+10. quản lý nhắc việc (1 việc trong tương lai hay còn gọi là event: ngày giờ nào, ở đâu, ghi chú, có lặp lại không? lặp lại kiểu gì (daily, weekly, ... custom). thêm sửa xóa các event. tự động liệt kê gần nhất trong tương lai là có event gì? bao lâu thì đến cái gần nhất đó?....)
+11. quản lý cây gia phả: mỗi người dùng tạo 1 user, mỗi user được phép nhập thông tin gia phả nhà mình: thêm các thành viên, cập nhật ảnh và các thông tin khác.
+    tham khảo: https://giapha.cmbliss.com/huong-dan-tao-cay-gia-pha.html
+12. quản lý của hàng tiện lợi (siêu thị mini) : đã phân tích trên lớp, mua gì bán nấy, mua rẻ bán đắt
+13. quản lý khách lưu trú cho các khách sạn (phần mềm bộ công an bắt các ks phải khai báo thông tin của khách đến ở)
+14. quản lý giao nhận hàng: (khách cần giao hàng đi xa sẽ tạo đơn hàng, khách nhận: sẽ tra cứu được đơn hàng đang đến đâu và nhận hàng, các khâu vận chuyển trung gian: cập nhật trạng thái hàng đang ở đâu, đang vận chuyển hay đang phân loại ở kho, hay đang được shipper đi giao, có COD không?, khách có trả hàng không, ... tham khảo giao hàng nhanh, shopee)
+15. hệ thống quản lý: sv đánh giá giáo viên, không lưu vết người đánh giá.
+    (gv dạy 1 lớp thì mọi sv lớp đó đều phải đánh giá gv dạy môn học này)
+    admin: tạo hệ thống các câu hỏi cho 1 học kỳ, tất cả các sv sẽ phải đánh giá bằng cách trả lời các câu hỏi này(chọn a b c d, hoặc chọn 1..9 tùy câu)
+    sv: phải đánh giá đủ (đánh giá đủ mới xem được portal chẳng hạn), vd 1 sv trong hk học 4 môn => phải làm 4 đánh giá về 4 gv dạy (kể cả là 1 gv có dạy nhiều môn,vì môn A thầy dạy tốt, nhưng môn B vẫn thầy đó lại dạy ko tốt)
+    admin: thống kê được các tiêu chí đánh giá cho 1 gv dạy 1 lớp (từ kq này lòi ra gv X có vấn đề về lĩnh vực nào đó ==> nhà trường sẽ làm gì đó => sv hưởng lợi)
+16. quản lý cửa hàng bánh piza online: (khách đến ăn tại quán cũng được, mà order từ xa qua web sẽ có shiper giao tận nơi, bán kính 10km. tham khảo foody)
+17. hệ thống quản lý đặt vé tàu hỏa: (khách xem đc lịch trình các đoàn tàu: đi từ đâu đến đâu, qua các ga nào; khách đặt online: chuyến nào, lên ga nào, xuống ga nào, vị trí toa, ghế, loại ghế, ... Nhân viên kiểm soát chỉ cần check qr code là đc lên tầu; tàu chạy nhân viên qua phần mềm biết được ai đã lên tàu; tới mỗi ga, khách xuống phải check qr; hệ thống cập nhật còn ai trên tầu, có ai quên xuống ko?)
+18. hệ thống quản lý bán vé xe bus : khách đi xe bus mua lẻ khi lên xe hoặc mua vé tháng. phụ xe: bán vé trên xe, kiểm tra vé tháng.
+19. quản lý bán hàng online: nhận đơn khách đặt, khách có thể trả tiền trước, hoặc COD. đóng hàng, đặt ship, nhận tiền COD. khách trả hàng....
+20. Hệ thống quản lý sản xuất: Hệ thống này giúp doanh nghiệp quản lý quá trình sản xuất, theo dõi nguyên vật liệu, và lập kế hoạch sản xuất. sv chọn 1 ngành sản xuất nào đó!
+
+PHÂN CÔNG:
+- các sv Lào làm 1 đề tài
+- các sv Cam làm 1 đề tài
+- các sv còn lại: tối đa 2 sv ghép đôi làm 1 đề tài, có thể 1 sv làm riêng.
+- sv chọn các đề tài đã list, hoặc tự nghĩ ra nhưng phải được duyệt.

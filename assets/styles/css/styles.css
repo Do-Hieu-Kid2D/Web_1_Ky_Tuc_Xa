@@ -1,6 +1,25 @@
 * {
     box-sizing: border-box;
 }
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: var(--back-primary);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: var(--chu-dam-color);
+}
 
 :root {
     --primary-color: #2da3e7;
@@ -17,10 +36,20 @@
     --mau-chu-theP: #343a40;
     --back-primary: linear-gradient(#54b4eb, #2fa4e7 60%, #1d9ce5);
 }
+.tay {
+    cursor: pointer;
+}
 
 html {
     font-size: 62.5%;
     font-family: "Poppins", sans-serif;
+}
+.tren-duoi-5 {
+    padding: 5px 0 !important;
+}
+
+.lh-14 {
+    line-height: 1.4 !important;
 }
 
 body {
@@ -37,6 +66,14 @@ body {
 a {
     text-decoration: none;
     font-family: "Poppins", sans-serif !important;
+}
+
+tr:hover {
+    background: rgba(102, 179, 255, 0.3);
+}
+
+tr:hover .more-info {
+    background: rgba(102, 179, 255, 0.3);
 }
 
 button {
@@ -252,11 +289,7 @@ button {
     margin-left: 11px;
     margin-right: 7px;
 }
-
-.list-dieu-huong .item-dieu-huong a {
-    font-size: 1.9rem !important;
-}
-
+.list-dieu-huong .item-dieu-huong button,
 .list-dieu-huong .item-dieu-huong a {
     display: inline-block;
     background-color: #fff;
@@ -265,8 +298,9 @@ button {
     border-bottom: 1.5px solid #ccc;
     padding: 10px 0 10px 15px;
     width: 100%;
-    font-size: 2.4rem;
+    font-size: 1.8rem;
     font-weight: 400;
+    font-family: "Poppins", sans-serif !important;
 }
 
 .list-dieu-huong .item-dieu-huong i {
@@ -274,11 +308,15 @@ button {
     margin-right: 3px;
 }
 
+.list-dieu-huong .item-dieu-huong button:hover,
 .list-dieu-huong .item-dieu-huong a:hover {
     cursor: pointer;
     color: var(--chu-dam-color);
 }
 
+.list-dieu-huong .item-dieu-huong button {
+    padding: 4px 0 4px 8px;
+}
 /* =========== Ký túc Xá =========== */
 
 /* .header-ktx {
@@ -707,19 +745,16 @@ button {
 
 .sinh-vien {
     margin-top: 5px;
-    height: 100px;
     width: 100%;
     /* border: 2px solid red; */
 }
 .body-sv {
-    width: 100%;
-    /* border: 2px solid red; */
     display: flex;
     justify-content: center;
 }
 
 .content-sv {
-    width: calc(100% - 100px);
+    width: calc(100% - 40px);
     /* border: 2px solid red; */
     display: flex;
     justify-content: center;
@@ -728,19 +763,22 @@ button {
 }
 
 .header-sv {
-    width: 100%;
-    /* width: 400px; */
-    border: 2px solid green;
-    height: 70px;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    background-color: #5ab5eb;
+    background-image: linear-gradient(86deg, #5ab5eb 0%, #5ac9e5 100%);
 }
 
 .title-main-sv {
-    margin-top: 8px;
+    /* margin-top: 8px; */
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    overflow: hidden;
+    padding: 15px 0;
     text-align: center;
     font-size: 2.55rem;
-    font-weight: 500;
-    border-bottom: 1px solid #000;
-    border: 2px solid green;
+    font-weight: 600;
+    border: 2px solid var(--chu-dam-color);
 }
 
 /* ==========  css table ========  */
@@ -750,7 +788,7 @@ button {
 }
 
 .div-chua-table-sv {
-    margin-top: 5px;
+    margin-top: 0px;
 }
 .table-sv {
     width: 100%;
@@ -813,13 +851,15 @@ th:last-child {
     display: inline;
     padding: 5px 6px;
     color: #1d9ce5;
+    border-radius: 20px;
 }
 
 .more-info:hover {
     color: rgb(15, 99, 225);
+    /* background: rgba(102, 179, 255, 0.3); */
 }
 
-td .img_gender{
+td .img_gender {
     font-size: 1rem;
     transform: scale(0.65);
 }
@@ -842,8 +882,113 @@ td .img_gender{
     }
 }
 
+.boc_ctsv {
+    display: flex;
+    margin: 10px;
+    /* border: 2px solid green; */
+}
 
-#kq-tb {
-    background-color:  #666666;
-    border: 2px solid green;
+.tb_ctsv td {
+    padding: 15px;
+}
+.tb_ctsv tr td:first-child {
+    width: 190px;
+    max-width: 250px !important;
+    /* background-color: #666666; */
+}
+
+.tb_ctsv table {
+    height: 100%;
+}
+.boc_tbsv {
+    max-width: 60% !important;
+    flex-grow: 8;
+    margin-left: 8px;
+    /* border: 2px solid green; */
+}
+
+.imgctsv {
+    flex-grow: 2;
+    /* border: 2px solid green; */
+    width: 450px;
+    height: 351Spx;
+    max-height: 370px !important;
+    max-width: 35%;
+    display: flex;
+    justify-items: center;
+    /* align-items: center; */
+}
+
+.imgctsv img {
+    border-radius: 4px;
+    margin-left: 30px;
+    object-fit: cover;
+    border: 2px solid var(--chu-color);
+}
+
+input[type="text"],
+select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 1.7rem;
+}
+
+.tb-border-none th,
+.tb-border-none td {
+    border: none;
+}
+
+.tb_sua_sv tr,
+.tb_sua_sv td {
+    padding: 0;
+    margin: 0;
+}
+
+.imgsuasv {
+    margin-left: 5px;
+    display: flex;
+    flex-direction: column;
+    width: 35%;
+    max-width: 35%;
+    height: 400px;
+    max-height: 400px !important;
+    display: flex;
+    /* justify-items: center; */
+    /* border: 2px solid green; */
+    /* align-items: center; */
+}
+
+.tb_sua_sv {
+    width: 65%;
+    max-width: 65%;
+}
+
+.chon_anh_suasv {
+    margin-top: 5px; /* display: block; */
+    width: 100%;
+    height: 30px;
+    /* background-color: #666666; */
+}
+
+#img_sua_sv {
+    height: 350px;
+    max-height: 350px;
+    width: 100%;
+    object-fit: contain;
+    /* border: 2px solid red; */
+}
+
+input[type="radio"] {
+    cursor: pointer;
+}
+
+.tb_insert th:first-child,
+.tb_insert td:first-child {
+    text-align: right !important;
+    margin-right: 14px !important;
 }

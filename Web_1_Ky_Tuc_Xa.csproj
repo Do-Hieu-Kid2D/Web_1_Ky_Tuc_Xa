@@ -52,6 +52,8 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="api\apiDN.aspx" />
+    <Content Include="api\upload.aspx" />
     <Content Include="assets\fronts\Poppins\Poppins-Black.woff" />
     <Content Include="assets\fronts\Poppins\Poppins-Black.woff2" />
     <Content Include="assets\fronts\Poppins\Poppins-BlackItalic.woff" />
@@ -100,14 +102,21 @@
     <Content Include="api\apiSV.aspx" />
     <Content Include="assets\fronts\stylesheet.css" />
     <Content Include="assets\javascripts\admin.js" />
+    <Content Include="assets\javascripts\app_dn.js" />
+    <Content Include="assets\javascripts\code-login.js" />
+    <Content Include="assets\javascripts\control_user.js" />
+    <Content Include="assets\javascripts\cookie.js" />
     <Content Include="assets\javascripts\giao_dien.js" />
+    <Content Include="assets\javascripts\toastr.min.js" />
     <Content Include="assets\styles\css\Font_Awesome.css" />
     <Content Include="assets\styles\css\Fornt_awe.css" />
     <Content Include="assets\styles\css\jquery-confirm.min.css" />
     <Content Include="assets\javascripts\jquery-confirm.min.js" />
     <Content Include="assets\javascripts\jqueryv371.js" />
     <Content Include="assets\styles\css\reset.css" />
+    <Content Include="assets\styles\css\style_dn.css" />
     <Content Include="assets\styles\css\styles.css" />
+    <Content Include="assets\styles\css\toastr.min.css" />
     <Content Include="assets\styles\img\anh-2.jpg" />
     <Content Include="assets\styles\img\anh-3.jpg" />
     <Content Include="assets\styles\img\anh1.png" />
@@ -115,9 +124,19 @@
     <Content Include="assets\styles\img\phongkt.png" />
     <Content Include="assets\styles\img\tunt_campus.png" />
     <Content Include="index.html" />
+    <Content Include="quan_ly.html" />
+    <Content Include="sinh_vien.html" />
+    <Content Include="test.html" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="api\apiDN.aspx.cs">
+      <DependentUpon>apiDN.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="api\apiDN.aspx.designer.cs">
+      <DependentUpon>apiDN.aspx</DependentUpon>
+    </Compile>
     <Compile Include="api\apiSV.aspx.cs">
       <DependentUpon>apiSV.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -125,11 +144,20 @@
     <Compile Include="api\apiSV.aspx.designer.cs">
       <DependentUpon>apiSV.aspx</DependentUpon>
     </Compile>
+    <Compile Include="api\upload.aspx.cs">
+      <DependentUpon>upload.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="api\upload.aspx.designer.cs">
+      <DependentUpon>upload.aspx</DependentUpon>
+    </Compile>
     <Compile Include="lib\AppSettingsGet.cs" />
     <Compile Include="lib\LibDB.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="data\img_sv\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
