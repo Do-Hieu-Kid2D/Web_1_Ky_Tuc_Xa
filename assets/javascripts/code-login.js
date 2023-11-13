@@ -73,7 +73,7 @@
                     ban_la_ai(json);
                 }
                 if (!json.ok) {
-                    alert(json.msg + " => VUI LÒNG ĐĂNG NHẬP");
+                    // alert(json.msg + " => VUI LÒNG ĐĂNG NHẬP");
                 }
             }
         );

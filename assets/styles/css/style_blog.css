@@ -1,0 +1,7 @@
+﻿body {
+    box-sizing: border-box;
+    background-image: url(../img/blog_back.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 4px -57px;
+}

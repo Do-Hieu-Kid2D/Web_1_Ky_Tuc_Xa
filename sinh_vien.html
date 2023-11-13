@@ -1,25 +1,582 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Ký túc Dkid</title>
-        <link
-            rel="icon"
-            href="./assets/styles/img/favicon.ico"
-            type="image/x-icon"
-        />
-        <script src="./assets/javascripts/jqueryv371.js"></script>
-        <link
-            href="assets/styles/css/jquery-confirm.min.css"
-            rel="stylesheet"
-        />
-        <script src="assets/javascripts/jquery-confirm.min.js"></script>
-        <!--Cokkie đăng nhập-->
-        <script src="assets/javascripts/cookie.js"></script>
-        <script src="assets/javascripts/control_user.js"></script>
-    </head>
-    <body>
-        <h1>SINH VIEN</h1>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ký túc Dkid</title>
+    <link rel="icon"
+          href="./assets/styles/img/favicon.ico"
+          type="image/x-icon" />
+    <!-- reset css -->
+    <link rel="stylesheet" href="./assets/styles/css/reset.css" />
+
+    <!-- Front Poppins-->
+    <link href="assets/fronts/stylesheet.css" rel="stylesheet" />
+
+    <!-- Font_Awesome -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+          integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+          crossorigin="anonymous"
+          referrerpolicy="no-referrer" />
+
+    <!-- jquery -->
+    <script src="./assets/javascripts/jqueryv371.js"></script>
+
+    <!-- jconfirm -->
+    <link href="assets/styles/css/jquery-confirm.min.css"
+          rel="stylesheet" />
+    <script src="assets/javascripts/jquery-confirm.min.js"></script>
+
+    <!--toastr-->
+    <link href="assets/styles/css/toastr.min.css" rel="stylesheet" />
+    <script src="assets/javascripts/toastr.min.js"></script>
+
+    <!--my code-->
+    <link href="assets/styles/css/sinh_vien.css" rel="stylesheet" />
+    <script src="assets/javascripts/sv.js"></script>
+
+    <!--Cokkie đăng nhập-->
+    <script src="assets/javascripts/cookie.js"></script>
+    <!-- <script src="assets/javascripts/control_user.js"></script> -->
+
+</head>
+      <!-- Header -->
+        <header class="header fixed">
+            <div class="main-content">
+                <div class="body">
+                    <!-- Logo -->
+                    <a href="/">
+                        <img
+                            src="./assets/styles/img/logo.png"
+                            alt="Lesson."
+                            class="logo"
+                        />
+                    </a>
+
+                    <!-- Nav -->
+                    <nav class="nav">
+                        <ul>
+                            <li class="tab-item active">
+                                <a href="#!">Bảng tin</a>
+                            </li>
+                            <li class="tab-item">
+                                <a href="#!">Ký túc xá</a>
+                            </li>
+                            <li class="tab-item">
+                                <a href="#!">Ý kiến đóng góp</a>
+                            </li>
+                        </ul>
+                    </nav>
+                    <div id="user" class="user primary">
+                        Xin chào Sinh viên
+                    </div>
+                    <!-- Action -->
+                    <div class="action">
+                        <!-- <a href="#!" class="btn sign-up-btn primary hide"
+                            >Đăng nhập</a
+                        >
+                        <a href="#!" class="btn sign-up-btn primary hide"
+                            >Đăng ký</a
+                        > -->
+                        <button id="dang_xuat" class="btn sign-up-btn danger">
+                            Đăng xuất
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!-- END HEADER -->
+        <main class="main row">
+            <!-- ?      ĐIỀU HƯỚNG       -->
+            <div class="dieu-huong">
+                <div class="head-dieu-huong">
+                    <i class="fa-solid fa-list-check"></i>
+                    <p>TÍNH NĂNG</p>
+                </div>
+                <!-- Điều hướng bảng tin -->
+                <ul class="list-dieu-huong list-pane active">
+                    <li class="item-dieu-huong">
+                        <a href="#tin-tuc">
+                            <i class="fa-solid fa-chevron-right"></i>Tin tức</a
+                        >
+                    </li>
+                    <li class="item-dieu-huong">
+                        <a href="#thong-bao"
+                            ><i class="fa-solid fa-chevron-right"></i>Thông
+                            báo</a
+                        >
+                    </li>
+                    <li class="item-dieu-huong">
+                        <a href="#blog"
+                            ><i class="fa-solid fa-chevron-right"></i>Loa
+                            phường</a
+                        >
+                    </li>
+                    <li id="blog" class="item-dieu-huong">
+                        <a href="./web_form/sv_blog.aspx"
+                            ><i class="fa-solid fa-chevron-right"></i>Đăng blog <i class="fa-solid fa-rss"></i></a
+                        >
+                    </li>
+                </ul>
+                <!-- Điều hướng Ký túc -->
+                <ul class="list-dieu-huong list-pane">
+                    <li class="item-dieu-huong">
+                        <a href="#k1">
+                            <i class="fa-solid fa-chevron-right"></i> Kí túc
+                            K1</a
+                        >
+                    </li>
+                    <li class="item-dieu-huong">
+                        <a href="#k2">
+                            <i class="fa-solid fa-chevron-right"></i> Kí túc
+                            K2</a
+                        >
+                    </li>
+                    <li class="item-dieu-huong">
+                        <a href="#k3">
+                            <i class="fa-solid fa-chevron-right"></i> Kí túc
+                            K3</a
+                        >
+                    </li>
+                </ul>
+                <!-- Điều hướng Feedback -->
+                <ul class="list-dieu-huong list-pane">
+                    <li class="item-dieu-huong">
+                        <a href=""
+                            ><i class="fa-solid fa-chevron-right"></i>Ý kiến
+                            1</a
+                        >
+                    </li>
+                    <li class="item-dieu-huong">
+                        <a href=""
+                            ><i class="fa-solid fa-chevron-right"></i>Ý kiến
+                            2</a
+                        >
+                    </li>
+                    <li class="item-dieu-huong">
+                        <a href=""
+                            ><i class="fa-solid fa-chevron-right"></i>Ý kiến
+                            3</a
+                        >
+                    </li>
+                    <li class="item-dieu-huong">
+                        <a href=""
+                            ><i class="fa-solid fa-chevron-right"></i>Ý kiến
+                            4</a
+                        >
+                    </li>
+                </ul>
+            </div>
+
+            <!-- ============= NỘI DUNG =========== -->
+            <div class="noi-dung">
+                <!--========= Bảng tin ========-->
+                <div class="bang-tin tab-pane active">
+                    <div class="container">
+                        <!--  Tin tức! -->
+                        <div id="tin-tuc" class="tin-tuc">
+                            <div class="titile-tintuc">
+                                <i class="fa-regular fa-newspaper"></i>
+                                <h2>TIN TỨC</h2>
+                            </div>
+                            <div class="list-tin-tuc">
+                                <div class="item-tin-tuc">
+                                    <p class="time">
+                                        <span>26/04/2022 09:43</span>
+                                    </p>
+                                    <a href="#!">
+                                        <img
+                                            src="./assets/styles/img/anh1.png"
+                                            alt=""
+                                            class="image"
+                                        />
+                                        <p class="desc">
+                                            Hội thảo triển khai Giáo dục STEM
+                                            trong các trường THPT tỉnh Thái
+                                            Nguyên.
+                                        </p>
+                                    </a>
+                                </div>
+                                <div class="item-tin-tuc">
+                                    <p class="time">
+                                        <span>02/12/2021 00:00</span>
+                                    </p>
+                                    <a href="#!">
+                                        <img
+                                            src="./assets/styles/img/anh-2.jpg"
+                                            alt=""
+                                            class="image"
+                                        />
+                                        <p class="desc">
+                                            Tuần sinh hoạt công dân dành cho
+                                            sinh viên K57 năm học 2021-2022.
+                                        </p>
+                                    </a>
+                                </div>
+                                <div class="item-tin-tuc">
+                                    <p class="time">
+                                        <span>02/11/2021 00:00</span>
+                                    </p>
+                                    <a href="#!">
+                                        <img
+                                            src="./assets/styles/img/anh-3.jpg"
+                                            alt=""
+                                            class="image"
+                                        />
+                                        <p class="desc">
+                                            Đề tài của trường đại học kỹ thuật
+                                            công nghiệp, ĐH Thái Nguyên đạt giải
+                                            thưởng sáng tạo khoa học.
+                                        </p>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Thông báo -->
+                        <div id="thong-bao" class="thong-bao">
+                            <div class="header-thong-bao">
+                                <i class="fa-solid fa-envelope-open-text"></i>
+                                <h2>THÔNG BÁO</h2>
+                            </div>
+                            <div class="row-thong-bao">
+                                <div class="cot-trai">
+                                    <div class="wrap-img">
+                                        <img
+                                            src="./assets/styles/img/thongbao.png"
+                                            alt=""
+                                            class="img-thong-bao"
+                                        />
+                                    </div>
+                                    <p class="time">
+                                        <span>07/11/2023 11:01</span>
+                                    </p>
+                                    <p class="desc">
+                                        <a href="#!">
+                                            Thông báo số 1031/TB-ĐHKTCN ngày
+                                            07/11/2023 Về việc chuẩn bị cho việc
+                                            đình chỉ thi đối với sinh viên còn
+                                            nợ học phí học kỳ 1 năm học
+                                            2023-2024.
+                                        </a>
+                                        <img
+                                            class="new-icon"
+                                            src="./assets/styles/img/new-icon.gif"
+                                            alt=""
+                                        />
+                                    </p>
+                                </div>
+                                <div class="cot-phai">
+                                    <ul class="list-thong-bao">
+                                        <li class="item-thong-bao">
+                                            <div class="xem-tb">
+                                                <i
+                                                    class="fa-solid fa-angles-right"
+                                                ></i>
+                                                <a href="#!"
+                                                    >Danh sách sinh viên dự xét
+                                                    chuẩn đầu ra ngoại ngữ,
+                                                    thưởng điểm miễn học các học
+                                                    phần tiếng Anh tháng 10 năm
+                                                    2023.</a
+                                                >
+                                                <img
+                                                    class="new-icon"
+                                                    src="./assets/styles/img/new-icon.gif"
+                                                    alt=""
+                                                />
+                                            </div>
+                                            <p class="time">03/11/2023 13:20</p>
+                                        </li>
+                                        <li class="item-thong-bao">
+                                            <div class="xem-tb">
+                                                <i
+                                                    class="fa-solid fa-angles-right"
+                                                ></i>
+                                                <a href="#!"
+                                                    >Thông báo về việc rút học
+                                                    phần nhưng không rút học phí
+                                                    học kỳ 1 năm học
+                                                    2023-2024</a
+                                                >
+                                                <img
+                                                    class="new-icon"
+                                                    src="./assets/styles/img/new-icon.gif"
+                                                    alt=""
+                                                />
+                                            </div>
+                                            <p class="time">19/10/2023 09:23</p>
+                                        </li>
+                                        <li class="item-thong-bao">
+                                            <div class="xem-tb">
+                                                <i
+                                                    class="fa-solid fa-angles-right"
+                                                ></i>
+                                                <a href="#!"
+                                                    >Thông báo Xét đơn của sinh
+                                                    viên xin tiếp tục theo học,
+                                                    nghỉ học tạm thời, thôi học,
+                                                    chuyển trường, chuyển ngành
+                                                    đào tạo, chuyển hệ đào tạo,
+                                                    học cùng lúc 2 chương trình
+                                                    học kỳ II năm học 2023 -
+                                                    2024</a
+                                                >
+                                                <img
+                                                    class="new-icon"
+                                                    src="./assets/styles/img/new-icon.gif"
+                                                    alt=""
+                                                />
+                                            </div>
+                                            <p class="time">09/10/2023 15:25</p>
+                                        </li>
+                                        <li class="item-thong-bao">
+                                            <div class="xem-tb">
+                                                <i
+                                                    class="fa-solid fa-angles-right"
+                                                ></i>
+                                                <a href="#!"
+                                                    >Danh sách sinh viên đạt
+                                                    chuẩn đầu ra ngoại ngữ,
+                                                    thưởng điểm miễn học các học
+                                                    phần tiếng Anh tháng 9 năm
+                                                    2023.</a
+                                                >
+                                                <img
+                                                    class="new-icon"
+                                                    src="./assets/styles/img/new-icon.gif"
+                                                    alt=""
+                                                />
+                                            </div>
+                                            <p class="time">09/10/2023 15:25</p>
+                                        </li>
+                                        <li class="item-thong-bao">
+                                            <div class="xem-tb">
+                                                <i
+                                                    class="fa-solid fa-angles-right"
+                                                ></i>
+                                                <a href="#!"
+                                                    >Danh sách sinh viên đạt
+                                                    chuẩn đầu ra ngoại ngữ,
+                                                    thưởng điểm miễn học các học
+                                                    phần tiếng Anh tháng 9 năm
+                                                    2023.</a
+                                                >
+                                                <img
+                                                    class="new-icon"
+                                                    src="./assets/styles/img/new-icon.gif"
+                                                    alt=""
+                                                />
+                                            </div>
+                                            <p class="time">09/10/2023 15:25</p>
+                                        </li>
+                                        <li class="item-thong-bao">
+                                            <div class="xem-tb">
+                                                <i
+                                                    class="fa-solid fa-angles-right"
+                                                ></i>
+                                                <a href="#!"
+                                                    >Thông báo số 883/TB-ĐHKTCN
+                                                    ngày 29/9/2023 về việc thu
+                                                    học phí học kỳ 1 năm học
+                                                    2023-2024</a
+                                                >
+                                                <img
+                                                    class="new-icon"
+                                                    src="./assets/styles/img/new-icon.gif"
+                                                    alt=""
+                                                />
+                                            </div>
+                                            <p class="time">29/09/2023 16:15</p>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- blog -->
+                        <div class="blog" id="blog">
+                            <!-- header-blog  -->
+                            <div class="header-thong-bao">
+                                <i class="fa-solid fa-earth-americas"></i>
+                                <h2>Ký túc.blog</h2>
+                            </div>
+                            <!-- content - blog -->
+                            <div class="content-blog">
+                                <!-- có bài đăng naopf ném vào body đê -->
+                                <div class="body-blog">
+                                    <!-- header blog -->
+                                    <div class="header-blog">
+                                        <div class="row">
+                                            <div class="colum-1">
+                                                <h2 class="title-blog">
+                                                    Ký túc Blog
+
+                                                    <span
+                                                        >chia sẻ together
+                                                        <i
+                                                            class="fa-solid fa-pen"
+                                                        ></i>
+                                                    </span>
+                                                </h2>
+                                                <p class="data">
+                                                    Để đạt được kết quả tốt
+                                                    trong mọi việc ta cần xác
+                                                    định mục tiêu rõ ràng cho
+                                                    việc đó. Học lập trình cũng
+                                                    không là ngoại lệ.
+                                                </p>
+                                                <button class="btn">
+                                                    Đăng bài ngay
+                                                </button>
+                                            </div>
+                                            <div class="colum-2">
+                                                <img
+                                                    src="./assets/styles/img/Banner_blog.png"
+                                                    alt=""
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="cac-blog">
+                                        <!-- block item -->
+                                        <div class="blog-item">
+                                            <div class="title-blog-item">
+                                                <i
+                                                    class="fa-brands fa-readme"
+                                                ></i>
+                                                <h2 class="tieu-de-blog">
+                                                    Blog_T1111 (id blog)
+                                                </h2>
+                                            </div>
+                                            <div class="noi-dung-blog">
+                                                <img
+                                                    src="/assets/styles/img/anh-2.jpg"
+                                                    alt=""
+                                                />
+                                                <h3 class="title-data-blog">
+                                                    Lorem ipsum dolor sit amet.
+                                                </h3>
+                                                <p class="data-blog">
+                                                    Lorem ipsum dolor, sit amet
+                                                    consectetur adipisicing
+                                                    elit. Quas voluptatum
+                                                    reiciendis quo eum natus,
+                                                    nemo saepe reprehenderit
+                                                    perspiciatis inventore.
+                                                    Odit, pariatur odio! Velit
+                                                    atque voluptas quo aperiam
+                                                    quidem? Dolorem itaque
+                                                    aperiam recusandae,. Dicta
+                                                    quisquam debitis magni
+                                                    pariatur ratione aperiam
+                                                    quod doloremque atque?
+                                                    Dolores incidunt voluptatem
+                                                    reiciendis eius sunt
+                                                    quisquam tenetur inventore
+                                                    reprehenderit vero quis
+                                                    repellendus quos nemo soluta
+                                                    debitis deserunt. Eum id
+                                                    facere, dolores magni eos
+                                                    aliquid esse doloribus!
+                                                </p>
+                                            </div>
+                                            <hr />
+                                            <div class="footer-blog">
+                                                <p class="tac-gia">
+                                                    <span class="black"
+                                                        >Tác giả:</span
+                                                    >
+                                                    Đỗ Văn Hiếu
+                                                </p>
+                                                <p class="time">09/11/2023</p>
+                                            </div>
+                                        </div>
+                                        <!-- end blog-item -->
+                                        <!-- block item -->
+                                        <div class="blog-item">
+                                            <div class="title-blog-item">
+                                                <i
+                                                    class="fa-brands fa-readme"
+                                                ></i>
+                                                <h2 class="tieu-de-blog">
+                                                    Blog_T1111 (id blog)
+                                                </h2>
+                                            </div>
+                                            <div class="noi-dung-blog">
+                                                <img
+                                                    src="/assets/styles/img/anh-3.jpg"
+                                                    alt=""
+                                                />
+                                                <h3 class="title-data-blog">
+                                                    Lorem ipsum dolor sit amet.
+                                                </h3>
+                                                <p class="data-blog">
+                                                    Lorem ipsum dolor, sit amet
+                                                    consectetur adipisicing
+                                                    elit. Quas voluptatum
+                                                    reiciendis quo eum natus,
+                                                    nemo saepe reprehenderit
+                                                    perspiciatis inventore.
+                                                    Odit, pariatur odio! Velit
+                                                    atque voluptas quo aperiam
+                                                    quidem? Dolorem itaque
+                                                    aperiam recusandae,
+                                                    voluptate adipisci in
+                                                    repudiandae fugit unde animi
+                                                    eaque eligendi sed
+                                                    perferendis ab fugiat, ipsum
+                                                    quo officia consectetur
+                                                    laudantium maiores
+                                                    temporibus. Dicta quisquam
+                                                    debitis magni pariatur
+                                                    ratione aperiam quod
+                                                    doloremque atque? Dolores
+                                                    incidunt voluptatem
+                                                    reiciendis eius sunt
+                                                    quisquam tenetur inventore
+                                                    reprehenderit vero quis
+                                                    repellendus quos nemo soluta
+                                                    debitis deserunt, esse
+                                                    molestiae ipsum quibusdam
+                                                    recusandae minima at maxime
+                                                    libero provident veritatis.
+                                                    Eum id facere, dolores magni
+                                                    eos aliquid esse doloribus!
+                                                </p>
+                                            </div>
+                                            <hr />
+                                            <div class="footer-blog">
+                                                <p class="tac-gia">
+                                                    <span class="black"
+                                                        >Tác giả:</span
+                                                    >
+                                                    Đỗ Văn Hiếu
+                                                </p>
+                                                <p class="time">09/11/2023</p>
+                                            </div>
+                                        </div>
+                                        <!-- end blog-item -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--======== Ký túc Xá ============-->
+                <div class="ky-tuc-xa tab-pane"></div>
+
+                <!-- ==========Ý kiến đóng góp ============-->
+                <div class="Y-kien-dong-gop tab-pane">
+                    <!-- Ý kiến đóng góp
+                    <button id="aq"></button>
+                    <div id="kq_all_sv"></div> -->
+                </div>
+            </div>
+        </main>
+
+        <!-- Js code -->
+        <script src="assets/javascripts/sv.js"></script>
+        <!-- <script src="assets/javascripts/giao_dien.js"></script> -->
     </body>
 </html>

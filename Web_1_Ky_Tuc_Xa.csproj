@@ -90,6 +90,9 @@
     <Content Include="assets\fronts\Poppins\Poppins-Thin.woff2" />
     <Content Include="assets\fronts\Poppins\Poppins-ThinItalic.woff" />
     <Content Include="assets\fronts\Poppins\Poppins-ThinItalic.woff2" />
+    <Content Include="assets\javascripts\js_blog.js" />
+    <Content Include="assets\styles\css\style_blog.css" />
+    <Content Include="web_form\sv_blog.aspx" />
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -107,6 +110,7 @@
     <Content Include="assets\javascripts\control_user.js" />
     <Content Include="assets\javascripts\cookie.js" />
     <Content Include="assets\javascripts\giao_dien.js" />
+    <Content Include="assets\javascripts\sv.js" />
     <Content Include="assets\javascripts\toastr.min.js" />
     <Content Include="assets\styles\css\Font_Awesome.css" />
     <Content Include="assets\styles\css\Fornt_awe.css" />
@@ -114,6 +118,7 @@
     <Content Include="assets\javascripts\jquery-confirm.min.js" />
     <Content Include="assets\javascripts\jqueryv371.js" />
     <Content Include="assets\styles\css\reset.css" />
+    <Content Include="assets\styles\css\sinh_vien.css" />
     <Content Include="assets\styles\css\style_dn.css" />
     <Content Include="assets\styles\css\styles.css" />
     <Content Include="assets\styles\css\toastr.min.css" />
@@ -154,6 +159,13 @@
     <Compile Include="lib\AppSettingsGet.cs" />
     <Compile Include="lib\LibDB.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="web_form\sv_blog.aspx.cs">
+      <DependentUpon>sv_blog.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="web_form\sv_blog.aspx.designer.cs">
+      <DependentUpon>sv_blog.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="data\img_sv\" />

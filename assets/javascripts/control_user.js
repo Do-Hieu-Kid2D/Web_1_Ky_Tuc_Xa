@@ -38,16 +38,16 @@
         if (json.role == 100) {
             // Người quản lý
             var currentURL = window.location.href;
-            if (!currentURL.endsWith("/quan_ly.html")) {
-                window.location.href = "/quan_ly.html";
+            if (!currentURL.endsWith("quan_ly.html")) {
+                window.location.href = "quan_ly.html";
             }
         }
 
         if (json.role == 1) {
             // Sinh viên
             var currentURL2 = window.location.href;
-            if (!currentURL2.endsWith("/sinh_vien.html")) {
-                window.location.href = "/sinh_vien.html";
+            if (!currentURL2.endsWith("sinh_vien.html")) {
+                window.location.href = "sinh_vien.html";
             }
         }
     }

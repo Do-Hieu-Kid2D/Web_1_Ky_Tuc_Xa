@@ -360,7 +360,7 @@
                     },
                     cancel: {
                         text: '<i class="fa fa-circle-xmark"></i> Thoát',
-                        keys: ["esc", "c", "C"],
+                        // keys: ["esc", "c", "C"],
                         btnClass: "btn-blue",
                     },
                 },
