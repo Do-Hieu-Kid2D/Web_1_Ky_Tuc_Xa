@@ -3,7 +3,7 @@
 
     // jQuery methods go here...
     var apiSV = "../../api/apiSV.aspx"; // https://localhost:44378/api/apiSV.aspx?action=list_all_sv
-    var apiUPLOAD = "../../api/upload.aspx"; // https://localhost:44378/api/apiSV.aspx?action=list_all_sv
+    var apiKTX = "../../api/apiKTX.aspx"; // https://localhost:44378/api/apiSV.aspx?action=list_all_sv
 
     function inittoatr() {
         toastr.options = {
@@ -251,7 +251,7 @@
                     <td>
                         <label for="fname">Giới tính:&nbsp;&nbsp;&nbsp;&nbsp;</label>
                     </td>
-                    <td style="padding-right: 220px;">
+                    <td >
                         ${gt_sv}
                     </td>
                 </tr>
@@ -412,7 +412,7 @@
 
                 console.log(thongtinsv);
                 // gửi ảnh đi
-                // do là lập trình gà nên gửi ảnh đi riêng lẻ!
+                // do là lập trình gà nên gửi ảnh đi riêng lẻ!           <=============
                 // nói phét là có thể người dùng k chọn ảnh!
                 let fileInput = document.getElementById("chon_anh_suasv");
                 let file_dc_chon = fileInput.files[0];
@@ -430,40 +430,37 @@
                         data: formData,
                         contentType: false,
                         processData: false,
-                        success: function (response) {
+                        success: function (data) {
                             // Xử lý kết quả từ máy chủ
+                            console.log(data);
                             try {
-                                let jsonOBJ = JSON.parse(response);
+                                let jsonOBJ = JSON.parse(data);
                                 if (jsonOBJ.ok) {
-                                    bao_ok(jsonOBJ);
+                                    //bao_ok(jsonOBJ); // cái này mà up ảnh nữa thì nó báo cả đường dẫn
                                     cap_nhat_sv();
                                     dialog_edit_sv.close();
                                     dialog_ctsv.close();
                                 } else {
-                                    let jsonOBJ = JSON.parse(response);
+                                    let jsonOBJ = JSON.parse(data);
                                     bao_loi(jsonOBJ);
                                 }
-                            } catch (error) {
-                                alert(error.message);
-                                console.log(
-                                    "Đã xảy ra lỗi catch:",
-                                    error.message
-                                );
+                            } catch (data) {
+                                console.log(data.message);
                             }
                         },
-                        error: function (error) {
-                            // Xử lý lỗi nếu c
-                            if (response.ok) {
-                                let jsonOBJ = JSON.parse(response);
-                                bao_ok(jsonOBJ);
-                                cap_nhat_sv();
-                                dialog_edit_sv.close();
-                                dialog_ctsv.close();
-                            } else {
-                                let jsonOBJ = JSON.parse(response);
-                                bao_loi(jsonOBJ);
-                            }
-                        },
+                        // error: function (error) {
+                        //     // Xử lý lỗi nếu c
+                        //     if (error.ok) {
+                        //         let jsonOBJ = JSON.parse(error);
+                        //         bao_ok(jsonOBJ);
+                        //         cap_nhat_sv();
+                        //         dialog_edit_sv.close();
+                        //         dialog_ctsv.close();
+                        //     } else {
+                        //         let jsonOBJ = JSON.parse(error);
+                        //         bao_loi(jsonOBJ);
+                        //     }
+                        // },
                     });
                 }
             }
@@ -869,11 +866,219 @@
         }
     });
 
+    // KÝ TÚC XÁ
+
+    function cap_nhat_ktx() {
+        // post luôn api để lấy data về render ký túc!
+        $.post(
+            apiSV,
+            {
+                action: "list_all_ktx",
+            },
+            function (data) {
+                // alert("ký túc:" + data);
+                // Ký túc đang cố định 150 phòng!
+                // for qua 50 phòng thì chuyển sang K tiếp theo.
+                let du_lieu_ktx = `<div class="day-nha" id="k1">
+                            <div class="title-nha">
+                                <h3>Nhà K1</h3>
+                            </div>
+                            <div class="nha">`;
+                let json = JSON.parse(data);
+                if (json.ok) {
+                    for (let p of json.data) {
+                        du_lieu_ktx += `
+                            <div data-ma="${
+                                p.ma_phong
+                            }" class="phong ${check_sl_nguoi(p)}">
+                                    <p class="title">${p.ma_phong}</p>
+                                    <p class="desc">${p.so_nguoi_dang_o}/${
+                            p.so_giuong
+                        }</p></div>
+                        `;
+                        if (p.ma_phong == "k1-510") {
+                            du_lieu_ktx += "</div></div>"; // đóng div k1
+                            du_lieu_ktx += `<div class="day-nha" id="k2">
+                                            <div class="title-nha">
+                                                <h3>Nhà K2</h3>
+                                            </div>
+                                            <div class="nha">`;
+                        }
+                        if (p.ma_phong == "k2-510") {
+                            du_lieu_ktx += "</div></div>"; // đóng div k2
+                            du_lieu_ktx += `<div class="day-nha" id="k3">
+                                            <div class="title-nha">
+                                                <h3>Nhà K3</h3>
+                                            </div>
+                                            <div class="nha">`;
+                        }
+                    } // vòng for
+                    $("#nd-ki-tuc").html(du_lieu_ktx);
+                    // Viết tiếp hàm sk click ở đây
+                    $(".phong").click(function () {
+                        // code here
+                        let ma_phong = $(this).data("ma");
+                        let flag_btn = 0;
+                        if ($(this).hasClass("phong-thieu")) {
+                            flag_btn = 1;
+                        }
+                        if ($(this).hasClass("phong-du")) {
+                            flag_btn = 2;
+                        }
+                        // Tiếp tục xuống DB lấy detail phòng là chi tiết sinh viên đã ở trong phòng!
+                        $.post(
+                            apiSV,
+                            {
+                                action: "sinh_vien_trong_phong",
+                                ma_phong: ma_phong,
+                            },
+                            function (data) {
+                                // alert(data);
+                                let json = JSON.parse(data);
+                                if (json.ok) {
+                                    let chi_tiet = ` <div class="">
+                                    <div class="">
+                                    <div style=" color:#2fa4e7; font-size: 28px;padding: 5px 0px 15px; font-weight: 500; text-align: center;">
+                                    ${ma_phong} </div>
+                                    <table   class="tb_ctsv">`;
+                                    chi_tiet += `<tr>
+                                                <td>Mã SV</td>
+                                                <td>Họ tên</td>
+                                                <td>Giới tính</td>
+                                                <td>Lớp</td>
+                                                <td>Số điện thoại</td>
+                                                <td>Ngày vào phòng</td>
+                                                <td >Xóa</td>
+                                            </tr>`;
+                                    for (var key in json) {
+                                        if (
+                                            json.hasOwnProperty(key) &&
+                                            key.startsWith("sv_")
+                                        ) {
+                                            var sinhVien = json[key];
+                                            let gt =
+                                                sinhVien.gioi_tinh == 1
+                                                    ? "Nam"
+                                                    : "Nữ";
+                                            chi_tiet += `<tr>
+                                                <td  >${key}</td>
+                                                <td>${sinhVien.ho_ten}</td>
+                                                <td>${gt}</td>
+                                                <td>${sinhVien.lop}</td>
+                                                <td> 
+                                                    <a href="tel:${sinhVien.sdt}">
+                                                    <i 
+                                                        class=" pd3 fa-solid fa-phone-volume"
+                                                    ></i
+                                                    >${sinhVien.sdt}</a
+                                                ></td>
+                                                <td>${sinhVien.ngay_vao_phong}</td>
+                                                <td>
+                                                <i
+                                                style = "color: #ff5c33"  
+                                                data-uid="${key}" 
+                                                class="xoa-svp tay pd fa-solid fa-user-slash"></i>
+                                                </td>
+                                           `;
+                                        }
+                                    }
+                                    chi_tiet += `</table>
+                                                    </div>
+                                                </div>
+                                                
+                                                `;
+                                    //Đã có data để hiện lên
+                                    var dialog_chi_tiet_phong = $.confirm({
+                                        title: `Chi tiết phòng!`,
+                                        content: chi_tiet,
+                                        animateFromElement: false,
+                                        typeAnimated: false,
+                                        backgroundDismiss: true,
+                                        icon: "fa-solid fa-circle-info",
+                                        type: "blue",
+                                        closeIconClass: "fa-solid fa fa-close",
+                                        escapeKey: "cancel",
+                                        boxWidth: "80%",
+                                        useBootstrap: false,
+                                        buttons: {
+                                            add: {
+                                                text: '<i class="fa-solid fa-user-plus"></i> Thêm',
+                                                btnClass: "btn-green",
+                                                isHidden: true,
+                                                action: function () {
+                                                    add_sv_to_room();
+                                                    return false; //ko đóng dialog
+                                                },
+                                            },
+                                            cancel: {
+                                                text: '<i class="fa fa-circle-xmark"></i> Thoát',
+                                                keys: ["esc", "c", "C"],
+                                                btnClass: "btn-blue",
+                                            },
+                                        },
+                                        onContentReady: function () {
+                                            if (
+                                                flag_btn == 0 ||
+                                                flag_btn == 1
+                                            ) {
+                                                dialog_chi_tiet_phong.buttons.add.isHidden = false;
+                                            }
+                                            $(".xoa-svp").click(function () {
+                                                // nút xóa click -> xóa thôi
+                                                let ma_phong;
+                                                ma_phong = $(this).data("uid");
+                                                $.post(
+                                                    apiSV,
+                                                    {
+                                                        action: "de",
+                                                        ma_sv: sv_ct.ma_sv,
+                                                    },
+                                                    function (json) {
+                                                        let jsonObj =
+                                                            JSON.parse(json);
+                                                        if (jsonObj.ok) {
+                                                            bao_ok(jsonObj);
+                                                            cap_nhat_sv();
+                                                            dialog_ctsv.close();
+                                                        } else {
+                                                            bao_loi(jsonObj);
+                                                        }
+                                                    }
+                                                );
+                                            });
+                                        },
+                                    });
+                                } else {
+                                    alert(json.msg);
+                                }
+                            }
+                        );
+                    });
+                }
+            }
+        );
+
+        function check_sl_nguoi(phong) {
+            if (phong.so_nguoi_dang_o == 0) {
+                return "phong-trong";
+            }
+            if (phong.so_nguoi_dang_o == phong.so_giuong) {
+                return "phong-du";
+            }
+            return "phong-thieu";
+        }
+    }
+
     // Cuối document.ready!
     cap_nhat_sv();
+    cap_nhat_ktx();
     inittoatr();
     chao_hoi();
 }); // end ready
+
+// HẾT READY RỒI
+
+// =====================================================================================================================
 
 function chao_hoi() {
     let chao = document.getElementById("user-ql");
@@ -882,7 +1087,6 @@ function chao_hoi() {
         chao.innerHTML = `Xin chào: ${ten}`;
     }
 }
-// ====================================================================
 
 function giao_dien_animation() {
     const $ = document.querySelector.bind(document);

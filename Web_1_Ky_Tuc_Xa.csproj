@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="api\apiDN.aspx" />
+    <Content Include="api\apiKTX.aspx" />
     <Content Include="api\upload.aspx" />
     <Content Include="assets\fronts\Poppins\Poppins-Black.woff" />
     <Content Include="assets\fronts\Poppins\Poppins-Black.woff2" />
@@ -142,6 +143,13 @@
     <Compile Include="api\apiDN.aspx.designer.cs">
       <DependentUpon>apiDN.aspx</DependentUpon>
     </Compile>
+    <Compile Include="api\apiKTX.aspx.cs">
+      <DependentUpon>apiKTX.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="api\apiKTX.aspx.designer.cs">
+      <DependentUpon>apiKTX.aspx</DependentUpon>
+    </Compile>
     <Compile Include="api\apiSV.aspx.cs">
       <DependentUpon>apiSV.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -168,6 +176,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="data\blog_img\" />
+    <Folder Include="data\blog_mp3\" />
     <Folder Include="data\img_sv\" />
   </ItemGroup>
   <PropertyGroup>

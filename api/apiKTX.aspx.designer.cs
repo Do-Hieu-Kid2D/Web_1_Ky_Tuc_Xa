@@ -7,20 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Web_1_Ky_Tuc_Xa.web_form
+namespace Web_1_Ky_Tuc_Xa.api
 {
 
 
-    public partial class sv_blog
+    public partial class apiKTX
     {
-
-        /// <summary>
-        /// ve control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl ve;
     }
 }

@@ -4,4 +4,150 @@
     background-size: cover;
     background-repeat: no-repeat;
     background-position: 4px -57px;
+    font-family: "Poppins", sans-serif !important;
+}
+
+.main,
+.content {
+    margin-top: 5px;
+}
+.header {
+    width: 100%;
+    padding: 5px 0;
+    background-color: #666666;
+    text-align: center;
+    color: #fff;
+    background-color: rgba(
+        94,
+        181,
+        141,
+        0.5
+    ); /* Màu xanh lam với độ trong suốt 0.5 */
+    background-image: linear-gradient(
+        62deg,
+        rgba(94, 181, 141, 0.5) 0%,
+        rgba(38, 167, 186, 0.5) 100%
+    );
+}
+
+.header h1 {
+    font-size: 2.5em;
+    padding: 5px 0;
+    font-weight: 600;
+}
+
+.header h1 {
+    font-size: 2em;
+    padding: 10px 0 15px;
+    font-weight: 500;
+}
+
+.content {
+    display: flex;
+    justify-content: space-between;
+    /* flex-direction: ; */
+    margin: 0 5px;
+}
+
+.colunm {
+    width: 350px;
+    max-width: 350px;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+}
+
+.colunm-1 {
+    width: 450px;
+    max-width: 450px;
+    padding: 15px;
+}
+
+.colunm-1 {
+    /* background-color: #666666; */
+    background-color: rgba(0, 153, 204, 0.9);
+    color: #fff;
+}
+
+.colunm-2 {
+    background-color: rebeccapurple;
+}
+
+.bai-viet {
+    width: 100%;
+    height: 200px;
+    background-color: #fff;
+    color: #0d0d0d;
+    padding: 5px;
+    margin: 8px 0;
+    line-height: 1.5;
+    border: 2px solid #fafafa;
+}
+.table tr {
+    border-collapse: separate; /* Đảm bảo sự phân cách giữa các ô */
+    border-spacing: 10px !important; /* Khoảng cách giữa các cột */
+}
+
+th {
+    font-size: 1.8rem;
+    color: var(--chu-dam-color);
+}
+td,
+th {
+    border: 2px solid var(--chu-dam-color);
+    padding: 6px 1px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+input[type="text"] {
+    width: 300px; /* Đặt chiều rộng của ô nhập liệu */
+    padding: 10px; /* Thêm khoảng trắng xung quanh ô nhập liệu */
+    font-size: 16px; /* Đặt kích thước font chữ */
+}
+
+tr td:first-child {
+    font-size: 19px;
+    text-align: right;
+}
+
+label {
+    display: inline-block;
+}
+
+#chua_anh {
+    width: 200px;
+    height: 100px;
+    /* border: 2px solid green; */
+    margin-left: 60px;
+    border: none;
+}
+
+#anh_review {
+    width: 200px;
+    max-width: 200px;
+    height: 100px;
+    max-height: 100px;
+    object-fit: contain;
+}
+
+label {
+    cursor: pointer !important;
+}
+
+audio {
+    width: 300px; /* Đặt chiều rộng của thanh điều khiển */
+    height: 30px; /* Đặt chiều cao của thanh điều khiển */
+    transform: scale(0.8); /* Giảm kích thước tổng thể */
+}
+
+#nut-gui {
+    padding: 16px 10px;
+    background-color: #0093e9;
+    background-image: linear-gradient(160deg, #0093e9 0%, #17a4b8 100%);
+    border-radius: 15px;
+    border: solid 1px #fafafa;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 900;
+    cursor: pointer;
 }

@@ -22,7 +22,7 @@
 }
 
 :root {
-    --primary-color: #2da3e7;
+    --primary-color: #2da3e7 !important;
     --nhat-primary-color: #c5e6f8;
     --chu-color: #2fa4e7;
     --chu-dam-color: #157ab5;
@@ -127,6 +127,10 @@ button {
     display: none;
 }
 
+.pd3 {
+    padding-left: 3px !important;
+    display: inline-block;
+}
 .danger {
     background: #ff5c33;
 }
@@ -888,6 +892,9 @@ td .img_gender {
     /* border: 2px solid green; */
 }
 
+.pd {
+    padding: 10 px;
+}
 .tb_ctsv td {
     padding: 15px;
 }
@@ -991,4 +998,5 @@ input[type="radio"] {
 .tb_insert td:first-child {
     text-align: right !important;
     margin-right: 14px !important;
+    width: 130px !important;
 }

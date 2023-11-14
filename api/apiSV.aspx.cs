@@ -89,7 +89,25 @@ namespace Web_1_Ky_Tuc_Xa.api
             }
             Response.Write(json);
         }
+        public void list_all_ktx(string action)
+        {
 
+            string json = "";
+            try
+            {
+
+                SqlServer db = new SqlServer();
+                SqlCommand cm = db.GetCmd("SP_KTX", action);
+                json = (string)db.Scalar(cm);
+
+            }
+            catch (Exception ex)
+            {
+                json = ex.Message;
+            }
+
+            Response.Write(json);
+        }
         void edit_anh_sv(string action)
         {
             try
@@ -169,7 +187,25 @@ namespace Web_1_Ky_Tuc_Xa.api
             Response.Write(json);
         }
 
+        private void sinh_vien_trong_phong(string action)
+        {
+            string json = "";
+            try
+            {
 
+                SqlServer db = new SqlServer();
+                SqlCommand cm = db.GetCmd("SP_KTX", action);
+                cm.Parameters.Add("@ma_phong", SqlDbType.NVarChar,50).Value = Request["ma_phong"];
+                json = (string)db.Scalar(cm);
+
+            }
+            catch (Exception ex)
+            {
+                json = ex.Message;
+            }
+
+            Response.Write(json);
+        }
         protected void Page_Load(object sender, EventArgs e)
         {
             string action = Request["action"];
@@ -188,7 +224,13 @@ namespace Web_1_Ky_Tuc_Xa.api
                 case "edit_anh_sv":
                     edit_anh_sv(action);
                     break;
-  
+                case "list_all_ktx":
+                    list_all_ktx(action);
+                    break;
+                case "sinh_vien_trong_phong":
+                    sinh_vien_trong_phong(action);
+                    break;
+
             }
         }
 
