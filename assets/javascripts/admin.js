@@ -917,7 +917,7 @@
                     // Viết tiếp hàm sk click ở đây
                     $(".phong").click(function () {
                         // code here
-                        let ma_phong = $(this).data("ma");
+                        var ma_phong = $(this).data("ma");
                         let flag_btn = 0;
                         if ($(this).hasClass("phong-thieu")) {
                             flag_btn = 1;
@@ -977,6 +977,8 @@
                                                 <i
                                                 style = "color: #ff5c33"  
                                                 data-uid="${key}" 
+                                                data-map="${ma_phong}" 
+                                                 data-ten="${sinhVien.ho_ten}" 
                                                 class="xoa-svp tay pd fa-solid fa-user-slash"></i>
                                                 </td>
                                            `;
@@ -1025,29 +1027,70 @@
                                             }
                                             $(".xoa-svp").click(function () {
                                                 // nút xóa click -> xóa thôi
-                                                let ma_phong;
-                                                ma_phong = $(this).data("uid");
-                                                $.post(
-                                                    apiSV,
-                                                    {
-                                                        action: "de",
-                                                        ma_sv: sv_ct.ma_sv,
+                                                let ma_phong, msv, ten;
+                                                msv = $(this).data("uid");
+                                                ma_phong = $(this).data("map");
+                                                ten = $(this).data("ten");
+                                                $.confirm({
+                                                    title: `Sinh viên ra phòng`,
+                                                    content: `<div class="tren-duoi-5 lh-14"><b>XÁC NHẬN:</b><br>
+                                                    Bạn có muốn xóa sinh viên:<br> <b> ${ten} </b> khỏi phòng <b>${ma_phong}</b></div>`,
+                                                    animateFromElement: false,
+                                                    typeAnimated: false,
+                                                    backgroundDismiss: true,
+                                                    icon: "fa-solid fa-user-slash",
+                                                    type: "red",
+                                                    closeIconClass:
+                                                        "fa-solid fa fa-close",
+                                                    escapeKey: "cancel",
+                                                    boxWidth: "35%",
+                                                    useBootstrap: false,
+                                                    buttons: {
+                                                        edit_now: {
+                                                            text: `<i class="fa-solid fa-user-minus"></i> Xóa`,
+                                                            btnClass:
+                                                                "btn-orange",
+                                                            // Đủ dữ liệu nhập vào cac trường rồi! gọi hàm edit!
+                                                            action: function () {
+                                                                ra_phong_now(msv,ma_phong);
+                                                            },
+                                                        },
+                                                        cancel: {
+                                                            text: '<i class="fa fa-circle-xmark"></i> Thoát',
+                                                            keys: [
+                                                                "esc",
+                                                                "c",
+                                                                "C",
+                                                            ],
+                                                            btnClass:
+                                                                "btn-blue",
+                                                        },
                                                     },
-                                                    function (json) {
-                                                        let jsonObj =
-                                                            JSON.parse(json);
-                                                        if (jsonObj.ok) {
-                                                            bao_ok(jsonObj);
-                                                            cap_nhat_sv();
-                                                            dialog_ctsv.close();
-                                                        } else {
-                                                            bao_loi(jsonObj);
-                                                        }
-                                                    }
-                                                );
+                                                });
                                             });
                                         },
                                     });
+                                    function ra_phong_now(msv,ma_phong) {
+                                        // Gọi api XÓa
+                                        $.post(
+                                            apiSV,
+                                            {
+                                                action: "ra_phong",
+                                                ma_sv: msv,
+                                                ma_phong: ma_phong,
+                                            },
+                                            function (json) {
+                                                let jsonObj = JSON.parse(json);
+                                                if (jsonObj.ok) {
+                                                    bao_ok(jsonObj);
+                                                    cap_nhat_ktx();
+                                                    dialog_chi_tiet_phong.close();
+                                                } else {
+                                                    bao_loi(jsonObj.msg);
+                                                }
+                                            }
+                                        );
+                                    }
                                 } else {
                                     alert(json.msg);
                                 }

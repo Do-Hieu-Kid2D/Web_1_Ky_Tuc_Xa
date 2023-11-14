@@ -206,6 +206,27 @@ namespace Web_1_Ky_Tuc_Xa.api
 
             Response.Write(json);
         }
+
+        private void ra_phong(string action)
+        {
+            string json = "";
+            try
+            {
+
+                SqlServer db = new SqlServer();
+                SqlCommand cm = db.GetCmd("SP_THUE_PHONG", action);
+                cm.Parameters.Add("@ma_phong", SqlDbType.NVarChar, 50).Value = Request["ma_phong"];
+                cm.Parameters.Add("@ma_sv", SqlDbType.NVarChar, 10).Value = Request["ma_sv"];
+                json = (string)db.Scalar(cm);
+
+            }
+            catch (Exception ex)
+            {
+                json = ex.Message;
+            }
+
+            Response.Write(json);
+        }
         protected void Page_Load(object sender, EventArgs e)
         {
             string action = Request["action"];
@@ -229,6 +250,9 @@ namespace Web_1_Ky_Tuc_Xa.api
                     break;
                 case "sinh_vien_trong_phong":
                     sinh_vien_trong_phong(action);
+                    break;
+                case "ra_phong":
+                    ra_phong(action);
                     break;
 
             }
