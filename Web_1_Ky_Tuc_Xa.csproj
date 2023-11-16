@@ -93,6 +93,7 @@
     <Content Include="assets\fronts\Poppins\Poppins-ThinItalic.woff2" />
     <Content Include="assets\javascripts\js_blog.js" />
     <Content Include="assets\styles\css\style_blog.css" />
+    <Content Include="data\blog_mp3\ke_ngu.mp3" />
     <Content Include="web_form\sv_blog.aspx" />
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
@@ -177,7 +178,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="data\blog_img\" />
-    <Folder Include="data\blog_mp3\" />
     <Folder Include="data\img_sv\" />
   </ItemGroup>
   <PropertyGroup>

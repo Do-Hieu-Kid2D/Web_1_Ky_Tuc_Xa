@@ -1,9 +1,5 @@
-﻿<%@ Page 
-    Language="C#"
-    AutoEventWireup="true"
-    CodeBehind="sv_blog.aspx.cs"
-    Inherits="Web_1_Ky_Tuc_Xa.web_form.sv_blog" 
-    ValidateRequest="false"%>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="sv_blog.aspx.cs"
+Inherits="Web_1_Ky_Tuc_Xa.web_form.sv_blog" ValidateRequest="false"%>
 
 <!DOCTYPE html>
 
@@ -41,7 +37,10 @@
         <script src="../assets/javascripts/cookie.js"></script>
 
         <script src="../assets/javascripts/jquery-confirm.min.js"></script>
-        <link href="../assets/styles/css/jquery-confirm.min.css" rel="stylesheet" />
+        <link
+            href="../assets/styles/css/jquery-confirm.min.css"
+            rel="stylesheet"
+        />
 
         <link href="../assets/styles/css/style_blog.css" rel="stylesheet" />
         <script src="../assets/javascripts/js_blog.js"></script>
@@ -131,8 +130,12 @@
                     </form>
                 </div>
 
-                <div runat="server" id="ve" class="colunm colunm-2">Dữ liệu về đây</div>
-
+                <div runat="server" id="ve" class="colunm colunm-2"></div>
+                <audio autoplay type="hidden" id="playAudio">
+                    <source
+                        src="../assets/styles/lock_no_open/dao_ly_dung_bat.mp3"
+                    />
+                </audio>
             </div>
         </main>
 
@@ -168,37 +171,50 @@
             });
         </script>
 
-          <script>
-              var json = <%=  this.json  %>;
-              //$("#ve").html(json);
-              alert(json);
-              console.log(json);
-              alert(x);
-              console.log(x);
-
-              $.confirm({
-                  animateFromElement: false,
-                  typeAnimated: false,
-                  backgroundDismiss: true,
-                  closeIconClass: "fa-solid fa fa-close",
-                  escapeKey: "cancel",
-                  icon: "fa fa-circle-check",
-                  title: "Thông báo",
-                  content: "oke",
-                  type: "green",
-                  boxWidth: "35%",
-                  useBootstrap: false,
-                  autoClose: "ok|3000",
-                  buttons: {
-                      ok: {
-                          text: '<i class="fa fa-circle-check"></i> OK',
-                          btnClass: "btn-green",
-                      },
-                  },
-              });
-
-          </script>
+        <script>
+                      var json = <%=  this.json  %>;
+                      //$("#ve").html(json);
+                      //alert(json);
+                      console.log(json);
 
 
+                      if (json.ok) {
+                          $.confirm({
+                              animateFromElement: false,
+                              typeAnimated: false,
+                              backgroundDismiss: true,
+                              closeIconClass: "fa-solid fa fa-close",
+                              escapeKey: "cancel",
+                              icon: "fa fa-circle-check",
+                              title: "Thông báo",
+                              content: json.msg,
+                              type: "green",
+                              boxWidth: "35%",
+                              useBootstrap: false,
+                              autoClose: "ok|3000",
+                              buttons: {
+                                  ok: {
+                                      text: '<i class="fa fa-circle-check"></i> OK',
+                                      btnClass: "btn-green",
+                                  },
+                              },
+                          });
+                      } else {
+                          alert("Chưa đăng được blog rồi!!!");
+                     }
+
+            //            let audio = new Audio('./assets/styles/lock_no_open/dao_ly_dung_bat.mp3');
+
+            // // Phát âm nhạc tự động khi trang web được tải
+            // audio.play();
+
+             var isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
+                if (!isChrome){
+                    $('#iframeAudio').remove()
+                }
+                else {
+                    $('#playAudio').remove() // just to make sure that it will not have 2x audio in the background
+                }
+        </script>
     </body>
 </html>

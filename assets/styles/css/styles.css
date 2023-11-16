@@ -77,7 +77,7 @@ tr:hover .more-info {
 }
 
 button {
-    font-family: "Poppins";
+    font-family: "Poppins" !important;
     font-weight: 400;
     font-size: 1.6rem;
     line-height: calc(28 / 16);
@@ -682,6 +682,7 @@ button {
     border-top-right-radius: 16px;
     border-top-left-radius: 16px;
     box-shadow: inset 0px 0px 15px 2px rgba(21, 122, 181, 0.4);
+    min-height: 700px !important;
 }
 
 .title-blog-item {
@@ -703,6 +704,7 @@ button {
     margin-left: 10px;
     font-size: 2.3rem;
     font-weight: 400;
+    padding-bottom: 70px;
 }
 
 .title-data-blog,
@@ -1000,3 +1002,42 @@ input[type="radio"] {
     margin-right: 14px !important;
     width: 130px !important;
 }
+
+.search-container {
+    display: flex;
+    max-width: 400px;
+    width: 100%;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.search-input {
+    flex: 1;
+    border: none;
+    /* padding: 4px; */
+    font-size: 16px;
+    outline: none;
+}
+
+.search-button {
+    background-color: #fff;
+    color: #4d4c4c;
+    border: none;
+    padding: 02px;
+    margin: 10px;
+    border-radius: 5px;
+}
+
+.search-button:hover {
+    cursor: pointer;
+    background: var(--back-primary);
+    color: #fff;
+}
+
+/* .fix-height {
+    height: 100px;
+    max-height: 300px;
+    overflow: scroll;
+} */

@@ -469,7 +469,7 @@
         function delete_sv(id, ten) {
             $.confirm({
                 title: `Xóa sinh viên`,
-                content: `<div class="tren-duoi-5 lh-14"><b>XÁC NHẬN:</b><br> Bạn chắc chắn muốn xóa sinh viên: ${ten}</div>`,
+                content: `<div class="tren-duoi-5 lh-14"><b>XÁC NHẬN:</b><br> Bạn chắc chắn muốn XÓA sinh viên: ${ten}</div>`,
                 animateFromElement: false,
                 typeAnimated: false,
                 backgroundDismiss: true,
@@ -950,10 +950,13 @@
                                                 <td>Ngày vào phòng</td>
                                                 <td >Xóa</td>
                                             </tr>`;
+
                                     for (var key in json) {
                                         if (
-                                            json.hasOwnProperty(key) &&
-                                            key.startsWith("sv_")
+                                            // json.hasOwnProperty(key) &&
+                                            // key.startsWith("sv_")
+                                            key !== "ok" &&
+                                            key !== "msg"
                                         ) {
                                             var sinhVien = json[key];
                                             let gt =
@@ -986,9 +989,7 @@
                                     }
                                     chi_tiet += `</table>
                                                     </div>
-                                                </div>
-                                                
-                                                `;
+                                                </div>`;
                                     //Đã có data để hiện lên
                                     var dialog_chi_tiet_phong = $.confirm({
                                         title: `Chi tiết phòng!`,
@@ -1008,7 +1009,7 @@
                                                 btnClass: "btn-green",
                                                 isHidden: true,
                                                 action: function () {
-                                                    add_sv_to_room();
+                                                    them_sv_vao_phong(ma_phong);
                                                     return false; //ko đóng dialog
                                                 },
                                             },
@@ -1023,7 +1024,7 @@
                                                 flag_btn == 0 ||
                                                 flag_btn == 1
                                             ) {
-                                                dialog_chi_tiet_phong.buttons.add.isHidden = false;
+                                                this.buttons.add.show();
                                             }
                                             $(".xoa-svp").click(function () {
                                                 // nút xóa click -> xóa thôi
@@ -1034,7 +1035,7 @@
                                                 $.confirm({
                                                     title: `Sinh viên ra phòng`,
                                                     content: `<div class="tren-duoi-5 lh-14"><b>XÁC NHẬN:</b><br>
-                                                    Bạn có muốn xóa sinh viên:<br> <b> ${ten} </b> khỏi phòng <b>${ma_phong}</b></div>`,
+                                                    Bạn có muốn XÓA sinh viên:<br> <b> ${ten} </b> khỏi phòng <b>${ma_phong}</b></div>`,
                                                     animateFromElement: false,
                                                     typeAnimated: false,
                                                     backgroundDismiss: true,
@@ -1052,7 +1053,10 @@
                                                                 "btn-orange",
                                                             // Đủ dữ liệu nhập vào cac trường rồi! gọi hàm edit!
                                                             action: function () {
-                                                                ra_phong_now(msv,ma_phong);
+                                                                ra_phong_now(
+                                                                    msv,
+                                                                    ma_phong
+                                                                );
                                                             },
                                                         },
                                                         cancel: {
@@ -1070,7 +1074,7 @@
                                             });
                                         },
                                     });
-                                    function ra_phong_now(msv,ma_phong) {
+                                    function ra_phong_now(msv, ma_phong) {
                                         // Gọi api XÓa
                                         $.post(
                                             apiSV,
@@ -1092,14 +1096,373 @@
                                         );
                                     }
                                 } else {
-                                    alert(json.msg);
+                                    // Nếu phòng k có người thì hiện hộp thoại muốn thêm người k?
+                                    $.confirm({
+                                        title: `Thông báo!`,
+                                        content: `<div class="tren-duoi-5 lh-14"><b>PHÒNG TRỐNG => k mống người:</b><br>
+                                                   Bạn muốn thêm sinh viên vào phòng không?</b></div>`,
+                                        animateFromElement: false,
+                                        typeAnimated: false,
+                                        backgroundDismiss: true,
+                                        icon: "fa-solid fa-envelope-open-text-",
+                                        type: "blue",
+                                        closeIconClass: "fa-solid fa fa-close",
+                                        escapeKey: "cancel",
+                                        boxWidth: "35%",
+                                        useBootstrap: false,
+                                        buttons: {
+                                            edit_now: {
+                                                text: `<i class="fa-solid fa-user-plus"></i> Thêm`,
+                                                btnClass: "btn-green",
+                                                // Đủ dữ liệu nhập vào cac trường rồi! gọi hàm edit!
+                                                action: function () {
+                                                    them_sv_vao_phong(ma_phong);
+                                                },
+                                            },
+                                            cancel: {
+                                                text: '<i class="fa fa-circle-xmark"></i> Thoát',
+                                                keys: ["esc", "c", "C"],
+                                                btnClass: "btn-blue",
+                                            },
+                                        },
+                                    });
                                 }
                             }
                         );
                     });
+
+                    function them_sv_vao_phong(ma_phong_them) {
+                        // Thêm vào phòng tức là sinh viên đó phải có trong DB!
+                        // Sẽ cho nhập từ khóa để tìm kiếm sinh viên!
+                        // sau đó thì tìm đc thằng bào thì add nó vào cái bảng!
+                        // để cho người dùng chọn nút thêm!
+                        // show dialog có chỗ để tìm kiếm và 1 thẻ div để chứa kq tìm"
+                        // let sv_kha_dung = lay_sv_de_them(ma_phong_them);
+                        // 1. post api lấy dữ liệu sinh viên đã:
+                        // sẽ call jconfirm để tạo dialog!
+                        alert(ma_phong_them);
+                        let kq_tim = ``;
+                        $.post(
+                            apiSV,
+                            {
+                                action: "sv_de_them",
+                            },
+                            function (json) {
+                                // trả về bảng sv đã tạo html rồi
+
+                                let jsonObj = JSON.parse(json);
+                                if (jsonObj.ok) {
+                                    kq_tim += `
+                                        <div class="tren-duoi-5 lh-14">
+                                            <div class="search-container">
+                                            <input id="tu_khoa" type="text" class="search-input" placeholder="Tìm theo mã, tên, sđt">
+                                            <button data-luu-mp="${ma_phong_them}" id="tim_sv_kd" class="search-button">Tìm kiếm</button>
+                                        </div>
+                                    </div>`;
+                                    kq_tim += ` <div class="">
+                                    <div class="">
+                                    <div style=" color:#2fa4e7; font-size: 22px;padding: 5px 0px 15px; font-weight: 500; text-align: center;">
+                                    CÁC SINH VIÊN KHẢ DỤNG </div> 
+                                    <div id="bang_sv_kd">
+                                    <table class=" fix-height tb_ctsv">`;
+                                    kq_tim += `<tr>
+                                                <td>Mã SV</td>
+                                                <td>Họ tên</td>
+                                                <td>Giới tính</td>
+                                                <td>Lớp</td>
+                                                <td>Số điện thoại</td>
+                                                <td >Thêm</td>
+                                            </tr>`;
+                                    for (let sv of jsonObj.data) {
+                                        kq_tim += `<tr>
+                                        <td  >${sv.ma_sv}</td>
+                                        <td>${sv.ho_ten}</td>
+                                        <td>${sv.gioi_tinh}</td>
+                                        <td>${sv.lop}</td>
+                                        <td> 
+                                            <a href="tel:${sv.sdt}">
+                                            <i 
+                                                class=" pd3 fa-solid fa-phone-volume"
+                                            ></i
+                                            >${sv.sdt}</a
+                                        ></td>
+                                         <td> 
+                                        <i
+                                        style = "color: #00cc00"  
+                                        data-uid="${sv.ma_sv}" 
+                                        data-map="${ma_phong_them}"
+                                        onclick="thue_phong('${sv.ma_sv}','${ma_phong_them}','${sv.ho_ten}');"
+                                        class="them-svp tay pd fa-solid fa-user-plus"></i>
+                                        </td>
+                                    `;
+                                    }
+                                    kq_tim += `</table>
+                                        </div>
+                                            </div>
+                                                </div>
+                                            <script>
+
+                                    function thue_phong(ma_sv, ma_phong, ten) {
+                                    $.confirm({
+                                        title: 'Sinh viên vào phòng',
+                                        content: '<div class="tren-duoi-5 lh-14"><b>XÁC NHẬN:</b><br>Bạn có muốn THÊM sinh viên:<br> <b>'+ ten +' </b> vào phòng <b>'+ ma_phong +'</b></div>',
+                                        animateFromElement: false,
+                                        typeAnimated: false,
+                                        backgroundDismiss: true,
+                                        icon: "fa-solid fa-user-plus",
+                                        type: "green",
+                                        closeIconClass: "fa-solid fa fa-close",
+                                        escapeKey: "cancel",
+                                        boxWidth: "35%",
+                                        useBootstrap: false,
+                                        buttons: {
+                                            edit_now: {
+                                                text: '<i class="fa-solid fa-user-plus"></i> Thêm',
+                                                btnClass: "btn-green",
+                                                // Đủ dữ liệu nhập vào cac trường rồi! gọi hàm edit!
+                                                action: function () {
+                                                    $.post(
+                                                        "../../api/apiSV.aspx",
+                                                        {
+                                                            action: "thue_phong",
+                                                            ma_phong: ma_phong,
+                                                            ma_sv: ma_sv,
+                                                        },
+
+                                                        function (data) {
+                                                            let json;
+                                                            json = JSON.parse(data);
+                                                            if (json.ok) {
+                                                                bao_ok(json);
+                                                            } else {
+                                                                bao_loi(json);
+                                                            }
+                                                        }
+                                                    );
+                                                },
+                                            },
+                                            cancel: {
+                                                text: '<i class="fa fa-circle-xmark"></i> Thoát',
+                                                keys: ["esc", "c", "C"],
+                                                btnClass: "btn-blue",
+                                            },
+                                        },
+                                    });
+                                }
+                                function bao_ok(json) {
+                                if (json.ok);
+                                if (json.msg != null && json.msg != "") {
+                                    toastr["info"]("<b>Thông báo</b><br>" + json.msg);
+                                    let msg = '<div class=" lh-14">Đã thêm thành công!</div>';
+                                    $.confirm({
+                                        animateFromElement: false,
+                                        typeAnimated: false,
+                                        backgroundDismiss: true,
+                                        closeIconClass: "fa-solid fa fa-close",
+                                        escapeKey: "cancel",
+                                        icon: "fa fa-circle-check",
+                                        title: "Thông báo",
+                                        content: msg,
+                                        type: "green",
+                                        boxWidth: "35%",
+                                        useBootstrap: false,
+                                        autoClose: "ok|3000",
+                                        buttons: {
+                                            ok: {
+                                                text: '<i class="fa fa-circle-check"></i> OK',
+                                                btnClass: "btn-green",
+                                            },
+                                        },
+                                    });
+                                }
+                            }
+                            function bao_loi(json) {
+                                if (!json.ok)
+                                    if (json.msg != null && json.msg != "") {
+                                        toastr["warning"]("<b>Thông báo lỗi</b><br>" + json.msg);
+                                        let msg = '<div style="line-height: 1.4;" class="lh-14" style>Có lỗi gì đó</div>';
+                                        $.confirm({
+                                            animateFromElement: false,
+                                            typeAnimated: false,
+                                            backgroundDismiss: true,
+                                            closeIconClass: "fa-solid fa fa-close",
+                                            escapeKey: "cancel",
+                                            icon: "fa fa-warning",
+                                            title: "Thông báo lỗi",
+                                            content: msg,
+                                            type: "red",
+                                            boxWidth: "35%",
+                                            useBootstrap: false,
+                                            autoClose: "ok|3000",
+                                            buttons: {
+                                                ok: {
+                                                    text: '<i class="fa fa-circle-check"></i> OK',
+                                                    btnClass: "btn-red",
+                                                },
+                                            },
+                                        });
+                                    }
+                            }
+                                </script>`;
+                                    // Lấy đc data -> tạo content song:
+                                    let dialog_sv_kha_dung = $.confirm({
+                                        title: `Thêm sinh viên vào phòng ${ma_phong_them}`,
+                                        content: kq_tim,
+                                        animateFromElement: false,
+                                        typeAnimated: false,
+                                        backgroundDismiss: true,
+                                        icon: "fa-solid fa-user-plus",
+                                        type: "green",
+                                        closeIconClass: "fa-solid fa fa-close",
+                                        escapeKey: "cancel",
+                                        boxWidth: "65%",
+                                        useBootstrap: false,
+                                        buttons: {
+                                            cancel: {
+                                                text: '<i class="fa fa-circle-xmark"></i> Thoát',
+                                                keys: ["esc", "c", "C"],
+                                                btnClass: "btn-blue",
+                                            },
+                                        },
+                                        onContentReady: function () {
+                                            this.$content
+                                                .find(".search-input")
+                                                .focus();
+                                            $("#tim_sv_kd").click(function () {
+                                                // nút tìm đc bấm lấy value ở bài tìm
+                                                let mp = $(this).data("luu-mp");
+                                                let tu_khoa =
+                                                    $("#tu_khoa").val();
+                                                $.post(
+                                                    apiSV,
+                                                    {
+                                                        action: "sv_de_them",
+                                                        tu_khoa: tu_khoa,
+                                                    },
+                                                    function (data) {
+                                                        let json =
+                                                            JSON.parse(data);
+                                                        let kq_tim;
+                                                        if (json.ok) {
+                                                            kq_tim = `<table class=" fix-height tb_ctsv">`;
+                                                            kq_tim += `<tr>
+                                                            <td>Mã SV</td>
+                                                            <td>Họ tên</td>
+                                                            <td>Giới tính</td>
+                                                            <td>Lớp</td>
+                                                            <td>Số điện thoại</td>
+                                                            <td>Thêm</td>
+                                                            </tr>`;
+                                                            for (let sv of json.data) {
+                                                                kq_tim += `<tr>
+                                                                <td  >${sv.ma_sv}</td>
+                                                                <td>${sv.ho_ten}</td>
+                                                                <td>${sv.gioi_tinh}</td>
+                                                                <td>${sv.lop}</td>
+                                                                <td> 
+                                                                <a href="tel:${sv.sdt}">
+                                                                <i 
+                                                                    class=" pd3 fa-solid fa-phone-volume"
+                                                                ></i
+                                                                >${sv.sdt}</a
+                                                                ></td>
+                                                                    <td> 
+                                                                <i
+                                                                style = "color: #00cc00"  
+                                                                data-uid="${sv.ma_sv}" 
+                                                                data-map="${mp}" 
+                                                                class="them-svp tay pd fa-solid fa-user-plus"></i>
+                                                                </td>
+                                                            `;
+                                                            }
+                                                            //  onclick =
+                                                            //      "thue_phong('${sv.ma_sv}','${ma_phong_them}','${sv.ho_ten}');";
+                                                            kq_tim += `</table>`;
+                                                            console.log(kq_tim);
+                                                        } else {
+                                                            kq_tim = json.msg;
+                                                        }
+
+                                                        $("#bang_sv_kd").html(
+                                                            kq_tim
+                                                        );
+                                                    }
+                                                );
+                                            });
+                                        },
+                                    }); // end post nhỏ
+                                } else {
+                                    bao_loi(jsonObj.msg);
+                                }
+                            }
+                        ); // end post
+                    }
                 }
             }
         );
+
+        function lay_sv_de_them(ma_phong_them) {
+            let kq_tim = `<div class="tren-duoi-5 lh-14">
+                <div class="search-container">
+                    <input type="text" class="search-input" placeholder="Tìm sinh viên...">
+                    <button class="search-button">Tìm kiếm</button>
+                </div>
+            </div>`;
+            $.post(
+                apiSV,
+                {
+                    action: "sv_de_them",
+                },
+                function (json) {
+                    // trả về bảng sv đã tạo html rồi
+
+                    let jsonObj = JSON.parse(json);
+                    if (jsonObj.ok) {
+                        kq_tim += ` <div class="">
+                                    <div class="">
+                                    <div style=" color:#2fa4e7; font-size: 28px;padding: 5px 0px 15px; font-weight: 500; text-align: center;">
+                                    CÁC SINH VIÊN KHẢ DỤNG </div>
+                                    <table   class="tb_ctsv">`;
+                        kq_tim += `<tr>
+                                                <td>Mã SV</td>
+                                                <td>Họ tên</td>
+                                                <td>Giới tính</td>
+                                                <td>Lớp</td>
+                                                <td>Số điện thoại</td>
+                                                <td >Thêm</td>
+                                            </tr>`;
+                        for (let sv of jsonObj.data) {
+                            kq_tim += `<tr>
+                                        <td  >${sv.ma_sv}</td>
+                                        <td>${sv.ho_ten}</td>
+                                        <td>${sv.gioi_tinh}</td>
+                                        <td>${sv.lop}</td>
+                                        <td> 
+                                            <a href="tel:${sinhVien.sdt}">
+                                            <i 
+                                                class=" pd3 fa-solid fa-phone-volume"
+                                            ></i
+                                            >${sinhVien.sdt}</a
+                                        ></td>
+                                        <i
+                                        style = "color: #00cc00"  
+                                        data-uid="${sv.ma_sv}" 
+                                        data-map="${ma_phong_them}" 
+                                        class="xoa-svp tay pd fa-solid fa-user-plus"></i>
+                                        </td>
+                                    `;
+                        }
+                        kq_tim += `</table>
+                                        </div>
+                                            </div>`;
+                    } else {
+                        bao_loi(jsonObj.msg);
+                    }
+                }
+            );
+
+            return kq_tim;
+        }
 
         function check_sl_nguoi(phong) {
             if (phong.so_nguoi_dang_o == 0) {

@@ -8,6 +8,7 @@ using System.Data.SqlClient;
 using System.Data;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using Web_1_Ky_Tuc_Xa.web_form;
 
 namespace Web_1_Ky_Tuc_Xa.api
 {
@@ -227,9 +228,103 @@ namespace Web_1_Ky_Tuc_Xa.api
 
             Response.Write(json);
         }
+
+        private void sv_de_them(string action)
+        {
+            string json = "";
+            try
+            {
+
+                SqlServer db = new SqlServer();
+                SqlCommand cm = db.GetCmd("SP_KTX", action);
+                cm.Parameters.Add("@tu_khoa", SqlDbType.NVarChar, 50).Value = "%" + Request["tu_khoa"] + "%";
+                json = (string)db.Scalar(cm);
+
+            }
+            catch (Exception ex)
+            {
+                json = ex.Message;
+            }
+
+            Response.Write(json);
+        }
+        private void thue_phong(string action)
+        {
+            string json = "";
+            try
+            {
+
+                SqlServer db = new SqlServer();
+                SqlCommand cm = db.GetCmd("SP_KTX", action);
+                cm.Parameters.Add("@ma_sv", SqlDbType.NVarChar, 10).Value =  Request["ma_sv"];
+                cm.Parameters.Add("@ma_phong", SqlDbType.NVarChar, 50).Value =  Request["ma_phong"];
+                json = (string)db.Scalar(cm);
+
+            }
+            catch (Exception ex)
+            {
+                json = ex.Message;
+            }
+
+            Response.Write(json);
+        }
+
+        class Blog
+        {
+            public string ma_sv, tieu_de, noi_dung, img, am_nhac, id_blog, ngay, ho_ten, audio;
+        }
+
+        class repBlog:reply
+        {
+            public List<Blog> blogs;
+        }
+        private void lay_blog(string action)
+        {
+            string json = "";
+            repBlog repb = new repBlog();
+            try
+            {
+
+                SqlServer db = new SqlServer();
+                SqlCommand cm = db.GetCmd("SP_BLOG", action);
+                DataTable dt = new DataTable();
+                dt = db.Query(cm);
+                if (dt.Rows.Count > 0)
+                {
+                    repb.blogs  = new List<Blog>();
+                        foreach (DataRow r in dt.Rows)
+                        {
+                            Blog b = new Blog();
+                            b.ho_ten = r["ho_ten"].ToString();
+                            b.ngay = r["ngay"].ToString();
+                            b.id_blog = r["id_blog"].ToString();
+                            b.am_nhac = r["am_nhac"].ToString();
+                            b.img = r["img"].ToString();
+                            b.noi_dung = r["noi_dung"].ToString();
+                            b.tieu_de = r["tieu_de"].ToString();
+                            b.ma_sv = r["ma_sv"].ToString();
+                        repb.blogs.Add(b);
+                        }
+                    //chuyển obj L -> json text
+                    repb.ok = true;
+                    repb.msg = "Có dữ liệu 5 blog new";
+                    json = JsonConvert.SerializeObject(repb);
+
+                    //phản hồi json text về trình duyệt
+                }
+
+            }
+            catch (Exception ex)
+            {
+                repb.ok =false;
+                repb.msg = ex.Message;
+            }
+
+            Response.Write(json);
+        }
         protected void Page_Load(object sender, EventArgs e)
         {
-            string action = Request["action"];
+            string action = Request["action"]; 
             switch (action)
             {
                 case "list_all_sv":
@@ -254,7 +349,15 @@ namespace Web_1_Ky_Tuc_Xa.api
                 case "ra_phong":
                     ra_phong(action);
                     break;
-
+                case "sv_de_them":
+                    sv_de_them(action);
+                    break;
+                case "thue_phong":
+                    thue_phong(action);
+                    break;
+                case "lay_blog":
+                    lay_blog(action);
+                    break;
             }
         }
 

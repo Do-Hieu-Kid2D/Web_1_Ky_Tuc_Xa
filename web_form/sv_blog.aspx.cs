@@ -14,7 +14,6 @@ namespace Web_1_Ky_Tuc_Xa.web_form
     {
 
         public string json;
-        public string xxx = "jfiifjhchjchjo jjsdjosd";
         protected void Page_Load(object sender, EventArgs e)
         {
             try
@@ -69,7 +68,7 @@ namespace Web_1_Ky_Tuc_Xa.web_form
             }
             catch (Exception ex)
             {
-                ve.InnerHtml = ex.Message;
+               // ve.InnerHtml = ex.Message;
             }
         }
     }

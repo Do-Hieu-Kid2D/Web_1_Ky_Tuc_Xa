@@ -38,7 +38,7 @@
 
     <!--Cokkie đăng nhập-->
     <script src="assets/javascripts/cookie.js"></script>
-    <!-- <script src="assets/javascripts/control_user.js"></script> -->
+     <script src="assets/javascripts/control_user.js"></script> 
 
 </head>
       <!-- Header -->
@@ -113,10 +113,10 @@
                             phường</a
                         >
                     </li>
-                    <li id="blog" class="item-dieu-huong">
-                        <a href="./web_form/sv_blog.aspx"
-                            ><i class="fa-solid fa-chevron-right"></i>Đăng blog <i class="fa-solid fa-rss"></i></a
-                        >
+                    <li id="dang-bai" class="item-dieu-huong">
+                        <button 
+                            ><i class="fa-solid fa-chevron-right"></i>Chill with KTX <i class="fa-solid fa-rss"></i>
+                            </button>
                     </li>
                 </ul>
                 <!-- Điều hướng Ký túc -->
@@ -394,7 +394,7 @@
                             </div>
                         </div>
                         <!-- blog -->
-                        <div class="blog" id="blog">
+                        <div class="blog" id="blog" >
                             <!-- header-blog  -->
                             <div class="header-thong-bao">
                                 <i class="fa-solid fa-earth-americas"></i>
@@ -449,36 +449,48 @@
                                                 </h2>
                                             </div>
                                             <div class="noi-dung-blog">
-                                                <img
-                                                    src="/assets/styles/img/anh-2.jpg"
-                                                    alt=""
-                                                />
-                                                <h3 class="title-data-blog">
-                                                    Lorem ipsum dolor sit amet.
-                                                </h3>
-                                                <p class="data-blog">
-                                                    Lorem ipsum dolor, sit amet
-                                                    consectetur adipisicing
-                                                    elit. Quas voluptatum
-                                                    reiciendis quo eum natus,
-                                                    nemo saepe reprehenderit
-                                                    perspiciatis inventore.
-                                                    Odit, pariatur odio! Velit
-                                                    atque voluptas quo aperiam
-                                                    quidem? Dolorem itaque
-                                                    aperiam recusandae,. Dicta
-                                                    quisquam debitis magni
-                                                    pariatur ratione aperiam
-                                                    quod doloremque atque?
-                                                    Dolores incidunt voluptatem
-                                                    reiciendis eius sunt
-                                                    quisquam tenetur inventore
-                                                    reprehenderit vero quis
-                                                    repellendus quos nemo soluta
-                                                    debitis deserunt. Eum id
-                                                    facere, dolores magni eos
-                                                    aliquid esse doloribus!
-                                                </p>
+                                                <div class="tren">
+                                                    <div class="i-vi">
+                                                        <div class="day-len">
+                                                            <img
+                                                            src="/assets/styles/img/anh-2.jpg"
+                                                            alt=""
+                                                        />
+                                                        </div>
+                                                    <audio id="myAudio" controls>
+                                                        <source src="./data/blog_mp3/ke_ngu.mp3" type="audio/mp3">
+                                                        Your browser does not support the audio element.
+                                                    </audio>
+                                                    </div>
+                                                    <div class="text">
+                                                        <h3 class="title-data-blog">
+                                                            Lorem ipsum dolor sit amet.
+                                                        </h3>
+                                                        <p class="data-blog">
+                                                            Lorem ipsum dolor, sit amet
+                                                            consectetur adipisicing
+                                                            elit. Quas voluptatum
+                                                            reiciendis quo eum natus,
+                                                            nemo saepe reprehenderit
+                                                            perspiciatis inventore.
+                                                            Odit, pariatur odio! Velit
+                                                            atque voluptas quo aperiam
+                                                            quidem? Dolorem itaque
+                                                            aperiam recusandae,. Dicta
+                                                            quisquam debitis magni
+                                                            pariatur ratione aperiam
+                                                            quod doloremque atque?
+                                                            Dolores incidunt voluptatem
+                                                            reiciendis eius sunt
+                                                            quisquam tenetur inventore
+                                                            reprehenderit vero quis
+                                                            repellendus quos nemo soluta
+                                                            debitis deserunt. Eum id
+                                                            facere, dolores magni eos
+                                                            aliquid esse doloribus!
+                                                        </p>
+                                                    </div>
+                                                </div>
                                             </div>
                                             <hr />
                                             <div class="footer-blog">
@@ -492,8 +504,9 @@
                                             </div>
                                         </div>
                                         <!-- end blog-item -->
+                                        <div id="dien-blog"></div>
                                         <!-- block item -->
-                                        <div class="blog-item">
+                                        <!-- <div class="blog-item">
                                             <div class="title-blog-item">
                                                 <i
                                                     class="fa-brands fa-readme"
@@ -554,7 +567,7 @@
                                                 </p>
                                                 <p class="time">09/11/2023</p>
                                             </div>
-                                        </div>
+                                        </div> -->
                                         <!-- end blog-item -->
                                     </div>
                                 </div>

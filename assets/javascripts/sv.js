@@ -120,6 +120,140 @@
             }
     }
 
+    $("#dang-bai").click(function () {
+        // cho nó sang bên chỗ đăng bài
+        window.location.href = "./web_form/sv_blog.aspx";
+    });
+
+    // Bây giờ là render bài
+    // var audio = $("#myAudio");
+
+    // // Bắt sự kiện khi audio được tải xong
+    // audio.addEventListener("loadeddata", function () {
+    //     console.log("Audio is loaded and can be played");
+    // });
+
+    // // Bắt sự kiện khi audio kết thúc
+    // audio.addEventListener("ended", function () {
+    //     console.log("Audio playback ended");
+    // });
+
+    // // Các hàm điều khiển âm thanh
+    // function playAudio() {
+    //     audio.play();
+    // }
+
+    // function pauseAudio() {
+    //     audio.pause();
+    // }
+
+    // function stopAudio() {
+    //     audio.pause();
+    //     audio.currentTime = 0;
+    // }
+
+    // Lấy block về render
+    // 1. xing DB lấy json block!
+    function render_5_blog_new() {
+        $.post(
+            apiSV,
+            {
+                action: "lay_blog",
+            },
+            function (data) {
+                console.log(data);
+                try {
+                    let json = JSON.parse(data);
+                    let data_blog = "";
+                    if (json.ok) {
+                        for (let blog of json.blogs) {
+                            // Xử lý img và audio!
+
+                            let img, audio;
+                            if (
+                                blog.img == "" ||
+                                blog.img === undefined ||
+                                blog.img == null ||
+                                blog.img == "null"
+                            ) {
+                                img = `
+                                <img
+                                src="./data/img_sv/img_no_have.jpg"
+                                alt=""
+                                />`;
+                            } else {
+                                img = `
+                                <img
+                                src="${blog.img}"
+                                alt=""
+                            />`;
+                            }
+
+                            if (
+                                blog.am_nhac == "" ||
+                                blog.am_nhac === undefined ||
+                                blog.am_nhac == null ||
+                                blog.am_nhac == "null"
+                            ) {
+                                audio = "";
+                            } else {
+                                audio = `<audio id="myAudio" controls>
+                                <source src=" ${blog.am_nhac}" type="audio/mp3">
+                                Your browser does not support the audio element.
+                            </audio>`;
+                            }
+
+                            data_blog += `
+                    <div class="blog-item">
+                        <div class="title-blog-item">
+                            <i
+                                class="fa-brands fa-readme"
+                            ></i>
+                            <h2 class="tieu-de-blog">
+                                ${blog.id_blog}
+                            </h2>
+                        </div>
+                        <div class="noi-dung-blog">
+                        <div class="tren">
+                            <div class="i-vi">
+                            ${img}
+                            ${audio}
+                            </div>
+                            <div class="text">
+                                <h3 class="title-data-blog">
+                                    ${blog.tieu_de}
+                                </h3>
+                                <p class="data-blog">
+                                    ${blog.noi_dung}
+                                </p>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="footer-blog">
+                            <p class="tac-gia">
+                                <span class="black"
+                                    >Tác giả:</span
+                                >
+                                ${blog.ho_ten}
+                            </p>
+                            <p class="time">${blog.ngay}</p>
+                        </div>
+                         </div>
+                    </div>`;
+                        }
+                    } else {
+                        bao_loi(json);
+                    }
+                    $("#dien-blog").html(data_blog);
+                } catch (e) {
+                    console.log(e);
+                }
+            }
+        );
+    }
+
+    render_5_blog_new();
+
     inittoatr();
     chao_hoi();
 }); // end ready

@@ -69,7 +69,7 @@
 }
 
 .colunm-2 {
-    background-color: rebeccapurple;
+    /* background-color: rebeccapurple; */
 }
 
 .bai-viet {
@@ -81,6 +81,9 @@
     margin: 8px 0;
     line-height: 1.5;
     border: 2px solid #fafafa;
+    overflow: scroll;
+    /* letter-spacing: 7px; */
+    /* line-height: 1.9; */
 }
 .table tr {
     border-collapse: separate; /* Đảm bảo sự phân cách giữa các ô */
@@ -150,4 +153,12 @@ audio {
     font-size: 18px;
     font-weight: 900;
     cursor: pointer;
+}
+
+#ve {
+    background-image: url("/assets/styles/img/img_blog_sv.jpg");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    border-radius: 4px; 
 }
